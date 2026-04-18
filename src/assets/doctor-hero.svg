@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 760">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.0"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0.0"/>
+    </linearGradient>
+    <linearGradient id="coat" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#f0f2ff"/>
+    </linearGradient>
+    <linearGradient id="shirt" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3aa0ff"/>
+      <stop offset="1" stop-color="#1d67ff"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="560" height="760" fill="url(#bg)"/>
+
+  <!-- head -->
+  <ellipse cx="280" cy="160" rx="92" ry="112" fill="#f2c6a7"/>
+  <path d="M190 170c28-78 152-124 208-18 9 18 12 40 10 64-62 18-166 6-218-46z" fill="#1c1c24"/>
+
+  <!-- neck -->
+  <path d="M240 250c20 18 60 18 80 0v44c0 30-22 54-50 54s-50-24-50-54v-44z" fill="#edbfa0"/>
+
+  <!-- body -->
+  <path d="M160 740c-10-160 6-284 70-340 20-18 48-28 80-28s60 10 80 28c64 56 80 180 70 340H160z" fill="url(#coat)"/>
+
+  <!-- shirt -->
+  <path d="M220 380c20-10 80-10 120 0v360H220V380z" fill="url(#shirt)" opacity="0.95"/>
+
+  <!-- lapels -->
+  <path d="M210 372c12-14 22-22 38-28l42 64-80 50V372z" fill="#ffffff"/>
+  <path d="M350 372c-12-14-22-22-38-28l-42 64 80 50V372z" fill="#ffffff"/>
+
+  <!-- stethoscope -->
+  <path d="M220 430c0 64 34 98 60 108" fill="none" stroke="#2b2b36" stroke-width="10" stroke-linecap="round"/>
+  <path d="M340 430c0 64-34 98-60 108" fill="none" stroke="#2b2b36" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="280" cy="548" r="22" fill="#2b2b36"/>
+  <circle cx="280" cy="548" r="10" fill="#d6d6df"/>
+
+  <!-- arms -->
+  <path d="M140 520c46-60 92-70 126-54 30 14 58 46 86 96" fill="none" stroke="#ffffff" stroke-width="54" stroke-linecap="round"/>
+  <path d="M420 520c-46-60-92-70-126-54-30 14-58 46-86 96" fill="none" stroke="#ffffff" stroke-width="54" stroke-linecap="round"/>
+
+  <!-- subtle outline -->
+  <path d="M160 740c-10-160 6-284 70-340 20-18 48-28 80-28s60 10 80 28c64 56 80 180 70 340" fill="none" stroke="rgba(18,18,26,0.06)" stroke-width="6"/>
+</svg>

@@ -1,0 +1,189 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px var(--pad-x);
+}
+
+.inner {
+  width: min(var(--container), 100%);
+  height: 54px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 12px 30px rgba(18, 18, 26, 0.10);
+  border: 1px solid rgba(18, 18, 26, 0.06);
+  padding: 0 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.brand { display: flex; align-items: center; flex-shrink: 0; }
+
+.logo { display: inline-flex; align-items: center; gap: 10px; padding-left: 6px; }
+.logoImg {
+  width: 28px;
+  height: 28px;
+  border-radius: 10px;
+  object-fit: contain;
+  box-shadow: 0 10px 22px rgba(18, 18, 26, 0.10);
+}
+.mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 10px;
+  background: radial-gradient(circle at 25% 25%, #fff 0, rgba(255,255,255,0.0) 40%),
+    linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%);
+  box-shadow: 0 10px 22px rgba(109, 94, 246, 0.22);
+}
+.word { font-weight: 700; letter-spacing: -0.02em; }
+
+.nav {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(18, 18, 26, 0.06);
+  border-radius: 999px;
+  padding: 6px;
+  gap: 4px;
+  flex: 1;
+  justify-content: center;
+}
+
+.link {
+  font-size: 0.92rem;
+  color: rgba(18, 18, 26, 0.78);
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 999px;
+  transition: background var(--ease), color var(--ease), transform var(--ease);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.link:hover { background: rgba(109, 94, 246, 0.10); color: var(--text); transform: translateY(-1px); }
+.active { background: rgba(109, 94, 246, 0.14); color: var(--text); }
+
+.actions { 
+  display: flex; 
+  justify-content: flex-end; 
+  align-items: center; 
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.burger {
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  border: 1px solid rgba(18, 18, 26, 0.10);
+  background: rgba(255, 255, 255, 0.72);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: box-shadow var(--ease), transform var(--ease);
+}
+
+.burger:hover { box-shadow: 0 16px 36px rgba(18, 18, 26, 0.10); transform: translateY(-1px); }
+
+.burger span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: rgba(18, 18, 26, 0.82);
+  border-radius: 99px;
+  transition: transform var(--ease), opacity var(--ease);
+}
+
+.burgerOpen span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.burgerOpen span:nth-child(2) { opacity: 0; }
+.burgerOpen span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.mobile {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .inner { flex-direction: row; flex-wrap: wrap; justify-content: space-between; }
+  .nav { display: none; }
+  .burger { display: inline-flex; }
+
+  .mobile {
+    display: block;
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity var(--ease);
+  }
+
+  .mobileOpen { opacity: 1; pointer-events: auto; }
+
+  .mobile::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 15, 20, 0.20);
+    backdrop-filter: blur(6px);
+  }
+
+  .mobilePanel {
+    position: absolute;
+    top: calc(var(--nav-h) - 2px);
+    right: var(--pad-x);
+    width: min(360px, calc(100% - var(--pad-x) * 2));
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(18, 18, 26, 0.08);
+    border-radius: 22px;
+    box-shadow: var(--shadow-lg);
+    padding: 12px;
+    display: grid;
+    gap: 6px;
+  }
+
+  .mobileLink,
+  .mobileLinkStrong,
+  .mobileLinkEmergency {
+    padding: 12px 12px;
+    border-radius: 16px;
+    font-weight: 700;
+    color: rgba(18, 18, 26, 0.82);
+    transition: background var(--ease);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+  }
+
+  .mobileLink:hover { background: rgba(109, 94, 246, 0.10); }
+
+  .mobileLinkStrong {
+    background: var(--primary);
+    color: #fff;
+  }
+
+  .mobileLinkStrong:hover {
+    background: #5b48d4;
+  }
+
+  .mobileLinkEmergency {
+    background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+    color: #fff;
+  }
+
+  .mobileLinkEmergency:hover {
+    background: linear-gradient(135deg, #b91c1c 0%, #dc2626 100%);
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "navbar": {
+    "home": "Home",
+    "services": "Services",
+    "doctors": "Doctors",
+    "about": "About",
+    "emergency": "Emergency",
+    "register": "Register"
+  },
+  "hero": {
+    "title": "Your Health, Our Priority.",
+    "description": "Welcome to MedEm - Your Complete Healthcare Solution. We provide expert medical services including doctor consultations, lab tests, medicines, ambulance services, and telemedicine. Trusted by thousands, we deliver compassionate and advanced medical care right to your doorstep, 24/7.",
+    "bookAppointment": "Book an Appointment",
+    "emergency": "Emergency",
+    "downloadApp": "Download Our App",
+    "appStore": "App Store",
+    "playStore": "Play Store",
+    "comingSoon": "Coming Soon"
+  },
+  "partners": {
+    "title": "Our Trusted Partners"
+  },
+  "about": {
+    "welcome": "Welcome to Shifa, where your health is our top priority. We offer a wide range of medical services, from general checkups to specialized treatments, all delivered with compassion and expertise.",
+    "commitment": "Our team of experienced doctors is committed to providing personalized care tailored to your needs.",
+    "stats": {
+      "savings": "Up to saving rate",
+      "users": "User",
+      "reviews": "reviews"
+    }
+  },
+  "services": {
+    "title": "Expert Medical Care for You & Your Family",
+    "subtitle": "From emergency to telemedicine: complete healthcare at your fingertips.",
+    "emergency": "Emergency (150km)",
+    "emergencyDesc": "Immediate ambulance, doctor & hospital assistance within 150km radius. Critical care response in minutes.",
+    "opd": "Doctor (OPD)",
+    "opdDesc": "AYUSH-qualified & MBBS doctors. Book appointments at local clinics or home visits. ₹300-800 per consultation.",
+    "labTests": "Lab Tests (All Tests)",
+    "labTestsDesc": "Home sample collection. NABL-certified labs. Reports in 24-48 hrs. Free home delivery in metro areas.",
+    "medicine": "Medicine (All India)",
+    "medicineDesc": "Generic & branded medicines. Express delivery across India. Free shipping on orders above ₹500.",
+    "telemedicine": "Telemedicine (Free)",
+    "telemedicineDesc": "Video consultation with doctors. First consultation FREE. Available 24/7. Prescription delivery included.",
+    "hospitals": "Hospitals & Clinics",
+    "hospitalsDesc": "Network of 500+ hospitals & clinics. Find beds, ICU availability, check prices in real-time. Direct booking.",
+    "ambulance": "Ambulance Service",
+    "ambulanceDesc": "Basic/Advanced life support ambulances. GPS tracked. ₹500-2000. ACL certified drivers & paramedics.",
+    "bloodBank": "Blood Bank",
+    "bloodBankDesc": "Find blood donors. Verified & screened. Delivery in 2 hrs + Rs. 1200-2000/unit. Emergency support available.",
+    "healthRecords": "Health Records",
+    "healthRecordsDesc": "Your complete medical history. Encrypted cloud storage. Share with doctors instantly. HIPAA compliant.",
+    "noLoginNeeded": "No login needed",
+    "loginRequired": "Login required"
+  },
+  "emergency": {
+    "title": "🚨 Emergency Help",
+    "subtitle": "Available 24/7. Direct calling available within 150km.",
+    "ambulance": "🚑 Ambulance",
+    "doctor": "👨‍⚕️ Doctor Help",
+    "bloodBank": "🩸 Blood Bank",
+    "police": "🚔 Police",
+    "nearbyHospitals": "📍 Nearby Hospitals",
+    "fetching": "Fetching nearby hospitals...",
+    "call": "📞"
+  },
+  "doctors": {
+    "title": "Meet Our Dedicated Experts",
+    "subtitle": "Highly skilled and compassionate professionals ready to care for you",
+    "viewAll": "View all Doctor"
+  },
+  "testimonials": {
+    "title": "What Our Patients Say",
+    "subtitle": "Real stories of healing and exceptional care."
+  },
+  "contact": {
+    "title": "We're Here for You!",
+    "subtitle": "Reach out for any queries or appointments",
+    "phone": "(025) 456 789",
+    "email": "support@shifa.io",
+    "address": "2715 Ash Dr. San Jose, South Dakota 83475",
+    "fullName": "Full Name",
+    "yourName": "Your name",
+    "email_label": "Email",
+    "message": "Message",
+    "howCanWeHelp": "How can we help?",
+    "send": "Send Message",
+    "sending": "Sending…",
+    "success": "Message sent successfully.",
+    "error": "Please fix the highlighted fields.",
+    "validation": {
+      "name": "Please enter your name.",
+      "email": "Please enter a valid email address.",
+      "message": "Please enter a message (min 10 characters)."
+    }
+  },
+  "cta": {
+    "title": "Get Expert Medical Care at Your Fingertips!",
+    "subtitle": "Access top doctors and healthcare services anytime, anywhere. Book appointments, consult online, and prioritize your well-being today!"
+  },
+  "location": {
+    "yourLocation": "Your Location",
+    "detecting": "Detecting...",
+    "locateMe": "🔄 Locate Me",
+    "map": "🗺️ Map",
+    "nearby": "Nearby hospitals within 25km",
+    "error": "Unable to get location. Please enable geolocation."
+  },
+  "footer": {
+    "tagline": "Your trusted source for expert healthcare services. Providing compassionate, personalized care for you and your family.",
+    "navigation": "Navigation",
+    "home": "Home",
+    "about": "About",
+    "services": "Service",
+    "doctors": "Doctors",
+    "blog": "Blog",
+    "footerServices": "Services",
+    "generalCheckups": "General Checkups",
+    "cardiology": "Cardiology",
+    "orthopedics": "Orthopedics",
+    "mentalHealth": "Mental Health",
+    "emergencyCare": "Emergency Care",
+    "physicalTherapy": "Physical Therapy",
+    "contact": "Contact",
+    "phone": "+1 (025) 456 789",
+    "supportEmail": "support@shifa.io",
+    "address": "2715 Ash Dr. San Jose, South Dakota 83475",
+    "termsOfService": "Terms of service",
+    "privacyPolicy": "Privacy Policy",
+    "copyright": "Shifa"
+  }
+}

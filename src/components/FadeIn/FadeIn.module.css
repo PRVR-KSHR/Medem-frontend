@@ -1,0 +1,11 @@
+.base {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity var(--ease), transform var(--ease);
+  will-change: opacity, transform;
+}
+
+.in {
+  opacity: 1;
+  transform: translateY(0);
+}

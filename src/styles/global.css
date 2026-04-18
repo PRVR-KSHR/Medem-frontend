@@ -1,0 +1,29 @@
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--text);
+  background: var(--bg);
+}
+
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; }
+
+::selection {
+  background: rgba(109, 94, 246, 0.22);
+}
+
+#root {
+  min-height: 100%;
+}
+
+/* Smooth section anchor offset for sticky nav */
+section[id] {
+  scroll-margin-top: calc(var(--nav-h) + 22px);
+}

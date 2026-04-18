@@ -1,0 +1,7 @@
+.shell {
+  min-height: 100vh;
+}
+
+.main {
+  padding-top: calc(var(--nav-h) + 22px);
+}
