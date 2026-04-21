@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
-import styles from './LocationWidget.module.css'
+import { MapPin, RefreshCcw } from 'lucide-react'
 
 export default function LocationWidget() {
   const [location, setLocation] = useState({ city: '', state: '', error: null, loading: false })
-  const [showMap, setShowMap] = useState(false)
 
   const handleLocateMe = () => {
     setLocation({ ...location, loading: true, error: null })
@@ -12,10 +11,7 @@ export default function LocationWidget() {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords
-          // In a real app, you'd use reverse geocoding to get city/state
-          // For now, we'll use mock data based on common Indian city coordinates
           
-          // Mock mapping of coordinates to cities (simplified)
           const mockCities = {
             'patna': { lat: 25.5941, lon: 85.1376, state: 'Bihar' },
             'ranchi': { lat: 23.3441, lon: 85.3096, state: 'Jharkhand' },
@@ -25,7 +21,6 @@ export default function LocationWidget() {
             'bhubaneswar': { lat: 20.2961, lon: 85.8245, state: 'Odisha' }
           }
 
-          // Find nearest city (simplified logic)
           let nearestCity = 'Current Location'
           let nearestState = 'India'
           let minDistance = Infinity
@@ -65,64 +60,42 @@ export default function LocationWidget() {
     }
   }
 
-  // Auto-detect on mount
   useEffect(() => {
     handleLocateMe()
   }, [])
 
   return (
-    <div className={styles.widget}>
-      <div className={styles.content}>
-        <div className={styles.info}>
-          <div className={styles.icon}>📍</div>
-          <div className={styles.text}>
-            <div className={styles.label}>Your Location</div>
-            <div className={styles.location}>
+    <div className="w-full bg-transparent relative z-40">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="flex items-center gap-4 w-full sm:w-auto">
+          <div className="flex items-center justify-center w-8 h-8 rounded-full bg-red-500/10 border border-red-500/20">
+            <MapPin className="w-4 h-4 text-red-400" />
+          </div>
+          <div className="flex flex-col">
+            <span className="text-[10px] font-bold tracking-widest text-[#DEDBC8]/50 uppercase">Your Location</span>
+            <div className="text-sm">
               {location.loading ? (
-                'Detecting...'
+                <span className="text-[#DEDBC8]/80">Detecting...</span>
               ) : location.error ? (
-                <span className={styles.error}>{location.error}</span>
+                <span className="text-red-400">{location.error}</span>
               ) : (
-                <>
-                  <strong>{location.city}</strong>, {location.state}
-                </>
+                <span className="text-[#E1E0CC]">
+                  <strong className="font-medium tracking-wide">{location.city}</strong>, <span className="text-[#DEDBC8]/80">{location.state}</span>
+                </span>
               )}
             </div>
           </div>
         </div>
 
-        <div className={styles.actions}>
-          <button 
-            onClick={handleLocateMe} 
-            className={styles.locateBtn}
-            disabled={location.loading}
-            title="Refresh location"
-          >
-            {location.loading ? '⏳' : '🔄'} Locate Me
-          </button>
-          {location.lat && (
-            <button 
-              onClick={() => setShowMap(!showMap)}
-              className={styles.mapBtn}
-              title="Show nearby hospitals on map"
-            >
-              🗺️ Map
-            </button>
-          )}
-        </div>
+        <button 
+          onClick={handleLocateMe} 
+          disabled={location.loading}
+          className="flex items-center justify-center gap-2 px-4 py-2 bg-[#212121] hover:bg-[#2a2a2a] border border-[#DEDBC8]/10 rounded-full text-xs font-medium text-[#E1E0CC] transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
+        >
+          <RefreshCcw className={`w-3 h-3 ${location.loading ? 'animate-spin opacity-50' : ''}`} />
+          <span>Locate Me</span>
+        </button>
       </div>
-
-      {showMap && location.lat && (
-        <div className={styles.mapContainer}>
-          <div className={styles.mapPlaceholder}>
-            <p>🗺️ Map View (Coming Soon)</p>
-            <small>Nearby hospitals within 25km</small>
-            <p className={styles.coords}>
-              Lat: {location.lat.toFixed(4)}, Lon: {location.lon.toFixed(4)}
-            </p>
-          </div>
-        </div>
-      )}
     </div>
   )
 }
