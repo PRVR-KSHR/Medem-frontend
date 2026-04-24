@@ -1,8 +1,8 @@
-const CACHE_NAME = 'medem-v1'
+const CACHE_NAME = 'medem-v2'
 const CACHE_URLS = [
   '/',
   '/index.html',
-  '/manifest.json'
+  '/site.webmanifest'
 ]
 
 // Emergency hospitals database - cached locally
@@ -31,6 +31,7 @@ const nearbyHospitalsDB = {
 }
 
 self.addEventListener('install', (event) => {
+  self.skipWaiting()
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(CACHE_URLS).catch(() => {
@@ -42,6 +43,38 @@ self.addEventListener('install', (event) => {
 })
 
 self.addEventListener('fetch', (event) => {
+  if (event.request.method !== 'GET') return
+
+  const url = new URL(event.request.url)
+  const isSameOrigin = url.origin === self.location.origin
+
+  // Always fetch latest favicons/manifest (avoid stale tab icons)
+  const isFaviconOrManifest =
+    isSameOrigin &&
+    (url.pathname === '/site.webmanifest' ||
+      url.pathname.startsWith('/favicon') ||
+      url.pathname.startsWith('/apple-touch-icon') ||
+      url.pathname.startsWith('/android-chrome'))
+
+  if (isFaviconOrManifest) {
+    event.respondWith(fetch(event.request))
+    return
+  }
+
+  // Network-first for navigations so index.html updates promptly
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          const responseClone = response.clone()
+          caches.open(CACHE_NAME).then((cache) => cache.put('/index.html', responseClone))
+          return response
+        })
+        .catch(() => caches.match('/index.html'))
+    )
+    return
+  }
+
   // Handle API requests for nearby hospitals
   if (event.request.url.includes('/api/nearby-hospitals')) {
     event.respondWith(
@@ -84,14 +117,17 @@ self.addEventListener('fetch', (event) => {
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (cacheName !== CACHE_NAME) {
-            return caches.delete(cacheName)
-          }
-        })
-      )
-    })
+    Promise.all([
+      caches.keys().then((cacheNames) => {
+        return Promise.all(
+          cacheNames.map((cacheName) => {
+            if (cacheName !== CACHE_NAME) {
+              return caches.delete(cacheName)
+            }
+          })
+        )
+      }),
+      self.clients.claim()
+    ])
   )
 })

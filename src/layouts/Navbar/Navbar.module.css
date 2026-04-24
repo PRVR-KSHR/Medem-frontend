@@ -28,10 +28,10 @@
 
 .brand { display: flex; align-items: center; flex-shrink: 0; }
 
-.logo { display: inline-flex; align-items: center; gap: 10px; padding-left: 6px; }
+.logo { display: inline-flex; align-items: center; gap: 12px; padding-left: 4px; }
 .logoImg {
-  width: 28px;
-  height: 28px;
+  width: 40px;
+  height: 40px;
   border-radius: 10px;
   object-fit: contain;
   box-shadow: 0 10px 22px rgba(18, 18, 26, 0.10);
