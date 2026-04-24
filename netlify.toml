@@ -1,6 +1,9 @@
 [build]
-  command = "npm run build"
+  command = "npm install && npm run build"
   publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "18.17.0"
 
 [[redirects]]
   from = "*"
@@ -8,10 +11,10 @@
   status = 200
 
 [context.production]
-  environment = { VITE_API_URL = "https://medem-backend.onrender.com" }
+  environment = { VITE_API_URL = "https://medem-backend.onrender.com", NODE_VERSION = "18.17.0" }
 
 [context.deploy-preview]
-  environment = { VITE_API_URL = "http://localhost:5000" }
+  environment = { VITE_API_URL = "http://localhost:5000", NODE_VERSION = "18.17.0" }
 
 [context.branch-deploy]
-  environment = { VITE_API_URL = "http://localhost:5000" }
+  environment = { VITE_API_URL = "http://localhost:5000", NODE_VERSION = "18.17.0" }
