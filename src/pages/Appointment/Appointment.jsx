@@ -1,14 +1,16 @@
 import { useState } from "react";
-import { CheckCircle2, ChevronRight, Calendar, User, CreditCard } from "lucide-react";
+import { CheckCircle2, Calendar, User, CreditCard } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export default function Appointment() {
+  const { t } = useTranslation();
   const [step, setStep] = useState(1);
 
   return (
     <div className="w-full flex-1 bg-black pt-24 pb-20 px-4 sm:px-6 lg:px-8 relative">
       <div className="max-w-3xl mx-auto relative z-10">
         <h1 className="text-3xl md:text-5xl font-serif italic text-[#E1E0CC] mb-8 text-center">
-          Book Appointment
+          {t('appointmentPage.title')}
         </h1>
 
         <div className="flex items-center justify-between mb-12 relative">
@@ -24,12 +26,12 @@ export default function Appointment() {
           {step === 1 && (
             <div className="space-y-6 flex flex-col">
               <h2 className="text-xl text-[#E1E0CC] font-medium flex items-center gap-2">
-                <User className="w-5 h-5 text-primary" /> Select Doctor
+                <User className="w-5 h-5 text-primary" /> {t('appointmentPage.selectDoctor')}
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div onClick={() => setStep(2)} className="border border-[#DEDBC8]/20 hover:border-primary p-4 rounded-xl cursor-pointer transition-colors bg-[#151515]">
-                  <h3 className="text-[#E1E0CC] font-medium">Dr. Marcus Chen</h3>
-                  <p className="text-[#DEDBC8]/60 text-sm">Cardiologist</p>
+                  <h3 className="text-[#E1E0CC] font-medium">{t('appointmentPage.doctorName')}</h3>
+                  <p className="text-[#DEDBC8]/60 text-sm">{t('appointmentPage.doctorSpeciality')}</p>
                 </div>
               </div>
             </div>
@@ -38,7 +40,7 @@ export default function Appointment() {
           {step === 2 && (
             <div className="space-y-6 flex flex-col">
               <h2 className="text-xl text-[#E1E0CC] font-medium flex items-center gap-2">
-                <Calendar className="w-5 h-5 text-primary" /> Date & Time
+                <Calendar className="w-5 h-5 text-primary" /> {t('appointmentPage.dateTime')}
               </h2>
               <div className="grid grid-cols-3 gap-3">
                 {["09:00 AM", "10:30 AM", "02:00 PM"].map((time, i) => (
@@ -53,20 +55,20 @@ export default function Appointment() {
           {step === 3 && (
             <div className="space-y-6 flex flex-col">
               <h2 className="text-xl text-[#E1E0CC] font-medium flex items-center gap-2">
-                <CreditCard className="w-5 h-5 text-primary" /> Payment
+                <CreditCard className="w-5 h-5 text-primary" /> {t('appointmentPage.payment')}
               </h2>
               <div className="bg-[#151515] p-4 rounded-xl border border-[#DEDBC8]/10 text-[#E1E0CC]">
                 <div className="flex justify-between mb-2">
-                  <span>Consultation Fee</span>
+                  <span>{t('appointmentPage.consultationFee')}</span>
                   <span>$150.00</span>
                 </div>
                 <div className="flex justify-between font-bold text-lg pt-2 border-t border-[#DEDBC8]/10">
-                  <span>Total</span>
+                  <span>{t('appointmentPage.total')}</span>
                   <span>$150.00</span>
                 </div>
               </div>
               <button onClick={() => setStep(4)} className="bg-primary text-black w-full py-4 rounded-full font-medium mt-4 hover:bg-white transition-colors">
-                Pay Securely
+                {t('appointmentPage.paySecurely')}
               </button>
             </div>
           )}
@@ -76,14 +78,14 @@ export default function Appointment() {
               <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
                 <CheckCircle2 className="w-10 h-10 text-green-500" />
               </div>
-              <h2 className="text-2xl text-[#E1E0CC] font-medium mb-2">Booking Confirmed!</h2>
-              <p className="text-[#DEDBC8]/60 mb-8 max-w-sm mx-auto">Your appointment with Dr. Marcus Chen is scheduled for Tomorrow at 10:30 AM.</p>
+              <h2 className="text-2xl text-[#E1E0CC] font-medium mb-2">{t('appointmentPage.confirmed')}</h2>
+              <p className="text-[#DEDBC8]/60 mb-8 max-w-sm mx-auto">{t('appointmentPage.confirmationText')}</p>
             </div>
           )}
 
           {step > 1 && step < 4 && (
             <button onClick={() => setStep(step - 1)} className="mt-8 text-sm text-[#DEDBC8]/50 hover:text-white transition-colors">
-              Back
+              {t('appointmentPage.back')}
             </button>
           )}
         </div>

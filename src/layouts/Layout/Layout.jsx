@@ -2,10 +2,12 @@ import { Outlet, Link, useLocation } from "react-router-dom";
 import { Activity, Menu, X } from "lucide-react";
 import { motion } from "motion/react";
 import { useState, useEffect } from "react";
-import LocationWidget from '../../components/LocationWidget/LocationWidget.jsx';
+import { useTranslation } from "react-i18next";
+import LanguageSelector from "../../components/LanguageSelector/LanguageSelector.jsx";
 import logo from '../../assets/logo.png';
 
 export default function Layout() {
+  const { t } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
@@ -24,28 +26,30 @@ export default function Layout() {
 
   const isHome = location.pathname === "/";
 
+  const navLinks = [
+    { key: "home", path: "/" },
+    { key: "about", path: "/about" },
+    { key: "services", path: "/services" },
+    { key: "doctors", path: "/doctors" },
+    { key: "emergency", path: "/emergency", emergency: true }
+  ];
+
   return (
     <div className="bg-black text-[#DEDBC8] min-h-screen selection:bg-primary/30 flex flex-col font-sans">
       <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${(!isHome || isScrolled || isMenuOpen) ? "bg-[#101010]/80 backdrop-blur-md border-b border-[#DEDBC8]/10" : "bg-transparent border-transparent pt-4"}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <Link to="/" className="flex items-center gap-3 group">
+            <Link to="/" className="flex items-center gap-1.5 group">
               <img src={logo} alt="MedEm Logo" className="h-[52px] w-auto object-contain transition-transform group-hover:scale-105" />
-              <span className="font-serif italic text-2xl tracking-wide text-[#E1E0CC]">MedEm</span>
+              <span className="font-serif italic text-2xl tracking-wide text-[#E1E0CC]">MEDEM</span>
             </Link>
             
             <nav className="hidden md:flex gap-8">
-              {[
-                { name: "Home", path: "/" },
-                { name: "About", path: "/about" },
-                { name: "Services", path: "/services" },
-                { name: "Doctors", path: "/doctors" },
-                { name: "Emergency", path: "/emergency", emergency: true },
-              ].map((link) => {
+              {navLinks.map((link) => {
                 const isActive = location.pathname === link.path;
                 return (
                 <Link
-                  key={link.name}
+                  key={link.key}
                   to={link.path}
                   className={`relative py-1 text-sm tracking-wide transition-colors ${
                     link.emergency 
@@ -53,7 +57,7 @@ export default function Layout() {
                       : isActive ? "text-[#E1E0CC] font-medium" : "text-[#DEDBC8]/80 hover:text-[#E1E0CC]"
                   }`}
                 >
-                  {link.name}
+                  {t(`navbar.${link.key}`)}
                   {isActive && (
                     <motion.div
                       layoutId="nav-indicator"
@@ -66,14 +70,12 @@ export default function Layout() {
             </nav>
 
             <div className="hidden md:flex items-center gap-4">
-              <Link to="/login" className="text-sm text-[#DEDBC8]/80 hover:text-[#E1E0CC]">
-                Login
-              </Link>
+              <LanguageSelector />
               <Link
                 to="/register"
                 className="bg-[#DEDBC8] text-black px-4 py-2 rounded-full text-sm font-medium hover:bg-white transition-colors"
               >
-                Register
+                {t("navbar.register")}
               </Link>
             </div>
 
@@ -92,19 +94,11 @@ export default function Layout() {
         {isMenuOpen && (
           <div className="md:hidden bg-[#101010] border-b border-[#DEDBC8]/10">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              {[
-                { name: "Home", path: "/" },
-                { name: "About", path: "/about" },
-                { name: "Services", path: "/services" },
-                { name: "Doctors", path: "/doctors" },
-                { name: "Emergency", path: "/emergency", emergency: true },
-                { name: "Login", path: "/login" },
-                { name: "Register", path: "/register" },
-              ].map((link) => {
+              {navLinks.map((link) => {
                 const isActive = location.pathname === link.path;
                 return (
                 <Link
-                  key={link.name}
+                  key={link.key}
                   to={link.path}
                   onClick={() => setIsMenuOpen(false)}
                   className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${
@@ -113,10 +107,20 @@ export default function Layout() {
                       : isActive ? "bg-[#212121] text-[#E1E0CC]" : "text-[#DEDBC8]/80 hover:text-[#E1E0CC] hover:bg-[#212121]"
                   }`}
                 >
-                  {link.name}
+                  {t(`navbar.${link.key}`)}
                 </Link>
                 );
               })}
+              <div className="px-3 py-2">
+                <LanguageSelector />
+              </div>
+              <Link
+                to="/register"
+                onClick={() => setIsMenuOpen(false)}
+                className="block px-3 py-2 rounded-md text-base font-medium bg-[#DEDBC8] text-black hover:bg-white transition-colors"
+              >
+                {t("navbar.register")}
+              </Link>
             </div>
           </div>
         )}
@@ -140,32 +144,32 @@ export default function Layout() {
             <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mt-4 md:mt-8">
               <div className="md:col-span-5 flex flex-col justify-between">
                 <p className="text-[#DEDBC8]/70 text-base max-w-sm leading-relaxed mb-8">
-                  Rapid emergency response & comprehensive medical coverage. We connect you with top doctors, labs, and pharmacies instantly.
+                  {t("layout.footer.tagline")}
                 </p>
                 <div>
                   <Link to="/emergency" className="bg-red-500/10 border border-red-500/30 text-red-400 hover:bg-red-500/20 px-8 py-3 rounded-full transition-colors inline-block font-medium text-sm shadow-[0_0_20px_rgba(248,113,113,0.1)]">
-                    Emergency 24/7 Dispatch
+                    {t("layout.footer.emergencyButton")}
                   </Link>
                 </div>
               </div>
 
               <div className="md:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-8 md:pl-8">
                 <div className="flex flex-col gap-4">
-                  <h3 className="text-[#E1E0CC] font-medium tracking-widest text-[10px] uppercase mb-2 border-b border-[#DEDBC8]/10 pb-3">Platform</h3>
-                  <Link to="/services" className="text-[#DEDBC8]/60 hover:text-[#E1E0CC] text-sm transition-colors">Services</Link>
-                  <Link to="/doctors" className="text-[#DEDBC8]/60 hover:text-[#E1E0CC] text-sm transition-colors">Find a Doctor</Link>
-                  <Link to="/hospitals" className="text-[#DEDBC8]/60 hover:text-[#E1E0CC] text-sm transition-colors">Hospitals</Link>
-                  <Link to="/medicine" className="text-[#DEDBC8]/60 hover:text-[#E1E0CC] text-sm transition-colors">Pharmacy</Link>
+                  <h3 className="text-[#E1E0CC] font-medium tracking-widest text-[10px] uppercase mb-2 border-b border-[#DEDBC8]/10 pb-3">{t("layout.footer.platform")}</h3>
+                  <Link to="/services" className="text-[#DEDBC8]/60 hover:text-[#E1E0CC] text-sm transition-colors">{t("layout.footer.platformServices")}</Link>
+                  <Link to="/doctors" className="text-[#DEDBC8]/60 hover:text-[#E1E0CC] text-sm transition-colors">{t("layout.footer.findDoctor")}</Link>
+                  <Link to="/services" className="text-[#DEDBC8]/60 hover:text-[#E1E0CC] text-sm transition-colors">{t("layout.footer.hospitals")}</Link>
+                  <Link to="/medicine" className="text-[#DEDBC8]/60 hover:text-[#E1E0CC] text-sm transition-colors">{t("layout.footer.pharmacy")}</Link>
                 </div>
                 <div className="flex flex-col gap-4">
-                  <h3 className="text-[#E1E0CC] font-medium tracking-widest text-[10px] uppercase mb-2 border-b border-[#DEDBC8]/10 pb-3">Company</h3>
-                  <Link to="/about" className="text-[#DEDBC8]/60 hover:text-[#E1E0CC] text-sm transition-colors">Our Story</Link>
-                  <Link to="/contact" className="text-[#DEDBC8]/60 hover:text-[#E1E0CC] text-sm transition-colors">Contact</Link>
-                  <Link to="/register" className="text-[#DEDBC8]/60 hover:text-[#E1E0CC] text-sm transition-colors">Join as Doctor</Link>
+                  <h3 className="text-[#E1E0CC] font-medium tracking-widest text-[10px] uppercase mb-2 border-b border-[#DEDBC8]/10 pb-3">{t("layout.footer.company")}</h3>
+                  <Link to="/about" className="text-[#DEDBC8]/60 hover:text-[#E1E0CC] text-sm transition-colors">{t("layout.footer.ourStory")}</Link>
+                  <Link to="/register" className="text-[#DEDBC8]/60 hover:text-[#E1E0CC] text-sm transition-colors">{t("layout.footer.contact")}</Link>
+                  <Link to="/register" className="text-[#DEDBC8]/60 hover:text-[#E1E0CC] text-sm transition-colors">{t("layout.footer.joinDoctor")}</Link>
                 </div>
                 <div className="flex flex-col gap-4 col-span-2 md:col-span-1 border-t border-[#DEDBC8]/10 pt-8 md:border-none md:pt-0">
-                  <h3 className="text-[#E1E0CC] font-medium tracking-widest text-[10px] uppercase mb-2 border-b border-[#DEDBC8]/10 pb-3">Connect</h3>
-                  <p className="text-[#DEDBC8]/50 text-xs">Stay updated on the latest platform features and healthcare networks.</p>
+                  <h3 className="text-[#E1E0CC] font-medium tracking-widest text-[10px] uppercase mb-2 border-b border-[#DEDBC8]/10 pb-3">{t("layout.footer.connect")}</h3>
+                  <p className="text-[#DEDBC8]/50 text-xs">{t("layout.footer.connectDesc")}</p>
                   <div className="flex gap-3 mt-2">
                     <div className="w-10 h-10 rounded-full bg-[#151515] hover:bg-[#212121] border border-[#DEDBC8]/10 hover:border-[#DEDBC8]/40 cursor-pointer transition-colors flex items-center justify-center">
                       <svg className="w-4 h-4 text-[#DEDBC8]/60" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
@@ -182,11 +186,11 @@ export default function Layout() {
           <div className="relative z-10 border-t border-[#DEDBC8]/10 px-8 py-6 sm:px-12 flex flex-col md:flex-row items-center justify-between gap-4 bg-black/50 backdrop-blur-sm">
             <div className="flex items-center gap-2">
               <Activity className="h-4 w-4 text-primary" />
-              <span className="text-[#DEDBC8]/50 text-xs tracking-wide">&copy; {new Date().getFullYear()} MedEm Platform</span>
+              <span className="text-[#DEDBC8]/50 text-xs tracking-wide">&copy; {new Date().getFullYear()} {t("layout.footer.copyright")}</span>
             </div>
             <div className="flex items-center gap-6 text-xs text-[#DEDBC8]/40">
-              <a href="#" className="hover:text-[#DEDBC8] transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-[#DEDBC8] transition-colors">Terms of Service</a>
+              <a href="#" className="hover:text-[#DEDBC8] transition-colors">{t("layout.footer.privacyPolicy")}</a>
+              <a href="#" className="hover:text-[#DEDBC8] transition-colors">{t("layout.footer.termsOfService")}</a>
             </div>
           </div>
         </div>

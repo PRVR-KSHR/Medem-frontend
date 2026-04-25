@@ -1,30 +1,32 @@
 import { AlertTriangle, MapPin, PhoneCall, HeartPulse, Activity } from "lucide-react";
 import { motion } from "motion/react";
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function Emergency() {
+  const { t } = useTranslation();
   const [detecting, setDetecting] = useState(false);
   const [location, setLocation] = useState(null);
   const [hospitals, setHospitals] = useState([
-    { name: "City General Hospital", dist: "1.2 km", time: "5 mins", est: "Ambulance ETA: 8m" },
-    { name: "Metro Heart Institute", dist: "3.5 km", time: "12 mins", est: "Ambulance ETA: 15m" },
-    { name: "Apex Trauma Center", dist: "5.1 km", time: "18 mins", est: "Ambulance ETA: 22m" }
+    { name: t('emergencyPage.hospitals.cityGeneral'), dist: "1.2 km", time: "5", est: "8" },
+    { name: t('emergencyPage.hospitals.metroHeart'), dist: "3.5 km", time: "12", est: "15" },
+    { name: t('emergencyPage.hospitals.apexTrauma'), dist: "5.1 km", time: "18", est: "22" }
   ]);
 
   useEffect(() => {
     // Preserve old automatic geolocation functionality
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((pos) => {
-        setLocation("Geo coordinates: " + pos.coords.latitude.toFixed(2) + ", " + pos.coords.longitude.toFixed(2));
+        setLocation(t('emergencyPage.geoCoordinates', { lat: pos.coords.latitude.toFixed(2), lon: pos.coords.longitude.toFixed(2) }));
       });
     }
-  }, []);
+  }, [t]);
 
   const handleLocate = () => {
     setDetecting(true);
     // Simulate GPS detection resolution
     setTimeout(() => {
-      setLocation("Sector 42, Metro Hospital Road, New Delhi");
+      setLocation(t('emergencyPage.sampleLocation'));
       setDetecting(false);
     }, 1500);
   };
@@ -45,36 +47,36 @@ export default function Emergency() {
         </motion.div>
 
         <h1 className="text-4xl md:text-6xl font-serif italic text-white mb-6">
-          Emergency Response
+          {t('emergencyPage.title')}
         </h1>
         <p className="text-red-200/80 text-lg max-w-2xl mb-12">
-          Every second counts. Dispatch an ambulance immediately or find the nearest critical care center.
+          {t('emergencyPage.subtitle')}
         </p>
 
         <button className="bg-red-600 hover:bg-red-500 text-white w-full sm:w-auto text-xl md:text-2xl font-bold py-6 px-12 rounded-[2rem] flex items-center justify-center gap-4 shadow-[0_0_40px_rgba(220,38,38,0.4)] transition-transform hover:scale-105 active:scale-95 mb-8">
           <PhoneCall className="w-8 h-8" />
-          EMERGENCY DISPATCH
+          {t('emergencyPage.dispatch')}
         </button>
 
         <div className="w-full bg-[#150a0a] border border-red-500/20 rounded-[2rem] p-8 mt-8 text-left shadow-[0_20px_40px_rgba(0,0,0,0.5)]">
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-[#E1E0CC] text-xl md:text-2xl font-medium flex items-center gap-3">
               <MapPin className="text-red-400" />
-              Nearest Critical Care
+              {t('emergencyPage.nearestCare')}
             </h2>
             <button 
               onClick={handleLocate}
               disabled={detecting}
               className="text-sm bg-red-950/40 text-red-300 px-4 py-2 rounded-full hover:bg-red-900/40 transition-colors disabled:opacity-50"
             >
-              {detecting ? "Locating..." : location ? "Refresh Location" : "Detect Location"}
+              {detecting ? t('emergencyPage.locating') : location ? t('emergencyPage.refreshLocation') : t('emergencyPage.detectLocation')}
             </button>
           </div>
 
           {location && (
             <div className="mb-6 p-4 bg-red-950/20 rounded-xl text-red-200/80 text-sm flex items-center gap-2">
               <Activity className="w-4 h-4 text-red-400" />
-              Current Location: <span className="text-white font-medium">{location}</span>
+              {t('emergencyPage.currentLocation')}: <span className="text-white font-medium">{location}</span>
             </div>
           )}
 
@@ -84,16 +86,16 @@ export default function Emergency() {
                 <div className="mb-4 sm:mb-0">
                   <h3 className="text-white font-medium text-lg mb-1">{hosp.name}</h3>
                   <div className="flex flex-wrap gap-4 text-sm text-red-200/60">
-                    <span className="flex items-center gap-1"><MapPin className="w-3 h-3" /> {hosp.dist} away</span>
-                    <span className="flex items-center gap-1"><Car className="w-3 h-3" /> {hosp.time} drive</span>
+                    <span className="flex items-center gap-1"><MapPin className="w-3 h-3" /> {t('emergencyPage.away', { distance: hosp.dist })}</span>
+                    <span className="flex items-center gap-1"><Car className="w-3 h-3" /> {t('emergencyPage.drive', { time: hosp.time })}</span>
                   </div>
                 </div>
                 <div className="flex flex-col items-start sm:items-end gap-2">
                   <span className="text-red-400 text-sm font-medium flex items-center gap-2">
-                    <HeartPulse className="w-4 h-4" /> {hosp.est}
+                    <HeartPulse className="w-4 h-4" /> {t('emergencyPage.ambulanceEta', { minutes: hosp.est })}
                   </span>
                   <button className="text-xs border border-red-500/30 text-red-300 px-4 py-1.5 rounded-full hover:bg-red-500/10 transition-colors">
-                    Navigate
+                    {t('emergencyPage.navigate')}
                   </button>
                 </div>
               </div>

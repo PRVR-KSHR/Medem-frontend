@@ -1,52 +1,55 @@
 import { Link } from "react-router-dom";
 import { motion } from "motion/react";
 import { ArrowRight, CalendarDays, Clock3, FileText, House, ShieldCheck, TestTube2 } from "lucide-react";
-
-const LAB_PACKAGES = [
-  {
-    name: "Essential Health Screen",
-    turnaround: "24 hrs",
-    tests: "45 parameters",
-    price: "Starting at Rs. 799"
-  },
-  {
-    name: "Cardiac Risk Panel",
-    turnaround: "24-36 hrs",
-    tests: "28 parameters",
-    price: "Starting at Rs. 1299"
-  },
-  {
-    name: "Diabetes & Thyroid Panel",
-    turnaround: "24 hrs",
-    tests: "22 parameters",
-    price: "Starting at Rs. 999"
-  }
-];
-
-const LAB_STEPS = [
-  {
-    title: "Choose Package",
-    desc: "Select a test package and preferred home collection time slot.",
-    icon: CalendarDays
-  },
-  {
-    title: "Sample Collection",
-    desc: "Certified phlebotomist reaches your location with sterile kits.",
-    icon: House
-  },
-  {
-    title: "Lab Processing",
-    desc: "NABL-standard processing with strict quality controls.",
-    icon: ShieldCheck
-  },
-  {
-    title: "Digital Reports",
-    desc: "Get verified reports in app and on email with doctor-ready format.",
-    icon: FileText
-  }
-];
+import { useTranslation } from "react-i18next";
 
 export default function LabTests() {
+  const { t } = useTranslation();
+
+  const LAB_PACKAGES = [
+    {
+      name: t('labTestsPage.packages.essential.name'),
+      turnaround: "24 hrs",
+      tests: t('labTestsPage.packages.essential.tests'),
+      price: t('labTestsPage.packages.essential.price')
+    },
+    {
+      name: t('labTestsPage.packages.cardiac.name'),
+      turnaround: "24-36 hrs",
+      tests: t('labTestsPage.packages.cardiac.tests'),
+      price: t('labTestsPage.packages.cardiac.price')
+    },
+    {
+      name: t('labTestsPage.packages.diabetes.name'),
+      turnaround: "24 hrs",
+      tests: t('labTestsPage.packages.diabetes.tests'),
+      price: t('labTestsPage.packages.diabetes.price')
+    }
+  ];
+
+  const LAB_STEPS = [
+    {
+      title: t('labTestsPage.steps.choosePackage.title'),
+      desc: t('labTestsPage.steps.choosePackage.desc'),
+      icon: CalendarDays
+    },
+    {
+      title: t('labTestsPage.steps.sampleCollection.title'),
+      desc: t('labTestsPage.steps.sampleCollection.desc'),
+      icon: House
+    },
+    {
+      title: t('labTestsPage.steps.labProcessing.title'),
+      desc: t('labTestsPage.steps.labProcessing.desc'),
+      icon: ShieldCheck
+    },
+    {
+      title: t('labTestsPage.steps.digitalReports.title'),
+      desc: t('labTestsPage.steps.digitalReports.desc'),
+      icon: FileText
+    }
+  ];
+
   return (
     <div className="w-full flex-1 bg-black pt-24 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       <div className="absolute inset-0 bg-noise opacity-[0.12] pointer-events-none" />
@@ -60,24 +63,24 @@ export default function LabTests() {
           className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-end mb-14"
         >
           <div className="lg:col-span-8">
-            <span className="text-primary text-[10px] sm:text-xs tracking-widest uppercase mb-4 block">Lab Services</span>
+            <span className="text-primary text-[10px] sm:text-xs tracking-widest uppercase mb-4 block">{t('labTestsPage.kicker')}</span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif italic text-[#E1E0CC] leading-[1.05] mb-5">
-              At-home lab tests, <br /> faster reports, calmer mornings.
+              {t('labTestsPage.titleLine1')} <br /> {t('labTestsPage.titleLine2')}
             </h1>
             <p className="text-[#DEDBC8]/70 text-base md:text-lg max-w-2xl">
-              Book diagnostics in minutes with doorstep sample collection, transparent pricing, and clinically verified reports.
+              {t('labTestsPage.subtitle')}
             </p>
           </div>
 
           <div className="lg:col-span-4 bg-[#101010] border border-[#DEDBC8]/15 rounded-2xl p-6 shadow-[0_18px_45px_rgba(0,0,0,0.45)]">
             <div className="flex items-center gap-3 mb-3">
               <TestTube2 className="w-5 h-5 text-primary" />
-              <p className="text-[#E1E0CC] text-sm font-medium">Home Collection Window</p>
+              <p className="text-[#E1E0CC] text-sm font-medium">{t('labTestsPage.homeCollectionWindow')}</p>
             </div>
-            <p className="text-[#DEDBC8]/70 text-sm leading-relaxed mb-4">6:30 AM to 9:30 PM in major cities. Real-time collector ETA shared before arrival.</p>
+            <p className="text-[#DEDBC8]/70 text-sm leading-relaxed mb-4">{t('labTestsPage.collectionWindowDesc')}</p>
             <div className="flex items-center gap-2 text-xs text-[#DEDBC8]/70">
               <Clock3 className="w-4 h-4 text-primary" />
-              Average report delivery: 24 hours
+              {t('labTestsPage.averageReportDelivery')}
             </div>
           </div>
         </motion.section>
@@ -95,7 +98,7 @@ export default function LabTests() {
               <h2 className="text-[#E1E0CC] text-xl mb-3">{pack.name}</h2>
               <div className="space-y-2 text-sm text-[#DEDBC8]/70">
                 <p>{pack.tests}</p>
-                <p>Report in {pack.turnaround}</p>
+                <p>{t('labTestsPage.reportIn', { turnaround: pack.turnaround })}</p>
                 <p className="text-primary">{pack.price}</p>
               </div>
             </motion.article>
@@ -103,7 +106,7 @@ export default function LabTests() {
         </section>
 
         <section className="mb-14">
-          <h2 className="text-2xl md:text-3xl font-serif italic text-[#E1E0CC] mb-6">How it works</h2>
+          <h2 className="text-2xl md:text-3xl font-serif italic text-[#E1E0CC] mb-6">{t('labTestsPage.howItWorks')}</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {LAB_STEPS.map((step, index) => (
               <motion.div
@@ -126,17 +129,17 @@ export default function LabTests() {
 
         <section className="bg-[#101010] border border-[#DEDBC8]/10 rounded-3xl p-7 md:p-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div>
-            <h2 className="text-2xl font-serif italic text-[#E1E0CC] mb-2">Need urgent testing today?</h2>
-            <p className="text-[#DEDBC8]/70 text-sm md:text-base">Same-day collection available for priority tests in selected locations.</p>
+            <h2 className="text-2xl font-serif italic text-[#E1E0CC] mb-2">{t('labTestsPage.urgentTitle')}</h2>
+            <p className="text-[#DEDBC8]/70 text-sm md:text-base">{t('labTestsPage.urgentSubtitle')}</p>
           </div>
 
           <div className="flex flex-wrap gap-3">
             <Link to="/appointment" className="inline-flex items-center gap-2 bg-[#DEDBC8] text-black rounded-full px-5 py-2.5 text-sm font-medium hover:bg-white transition-colors">
-              Book Lab Visit
+              {t('labTestsPage.bookLabVisit')}
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link to="/services" className="inline-flex items-center gap-2 border border-[#DEDBC8]/30 text-[#DEDBC8] rounded-full px-5 py-2.5 text-sm font-medium hover:bg-[#DEDBC8]/10 transition-colors">
-              Explore More Services
+              {t('labTestsPage.exploreMore')}
             </Link>
           </div>
         </section>

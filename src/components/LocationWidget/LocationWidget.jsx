@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
 import { MapPin, RefreshCcw } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 export default function LocationWidget() {
+  const { t } = useTranslation()
   const [location, setLocation] = useState({ city: '', state: '', error: null, loading: false })
 
   const handleLocateMe = () => {
@@ -21,8 +23,8 @@ export default function LocationWidget() {
             'bhubaneswar': { lat: 20.2961, lon: 85.8245, state: 'Odisha' }
           }
 
-          let nearestCity = 'Current Location'
-          let nearestState = 'India'
+          let nearestCity = t('location.currentLocation')
+          let nearestState = t('location.india')
           let minDistance = Infinity
 
           for (const [city, coords] of Object.entries(mockCities)) {
@@ -43,10 +45,10 @@ export default function LocationWidget() {
             loading: false
           })
         },
-        (error) => {
+        () => {
           setLocation({
             ...location,
-            error: 'Unable to get location. Please enable geolocation.',
+            error: t('location.error'),
             loading: false
           })
         }
@@ -54,7 +56,7 @@ export default function LocationWidget() {
     } else {
       setLocation({
         ...location,
-        error: 'Geolocation not supported by your browser.',
+        error: t('location.unsupported'),
         loading: false
       })
     }
@@ -72,10 +74,10 @@ export default function LocationWidget() {
             <MapPin className="w-4 h-4 text-red-400" />
           </div>
           <div className="flex flex-col">
-            <span className="text-[10px] font-bold tracking-widest text-[#DEDBC8]/50 uppercase">Your Location</span>
+            <span className="text-[10px] font-bold tracking-widest text-[#DEDBC8]/50 uppercase">{t('location.yourLocation')}</span>
             <div className="text-sm">
               {location.loading ? (
-                <span className="text-[#DEDBC8]/80">Detecting...</span>
+                <span className="text-[#DEDBC8]/80">{t('location.detecting')}</span>
               ) : location.error ? (
                 <span className="text-red-400">{location.error}</span>
               ) : (
@@ -93,7 +95,7 @@ export default function LocationWidget() {
           className="flex items-center justify-center gap-2 px-4 py-2 bg-[#212121] hover:bg-[#2a2a2a] border border-[#DEDBC8]/10 rounded-full text-xs font-medium text-[#E1E0CC] transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
         >
           <RefreshCcw className={`w-3 h-3 ${location.loading ? 'animate-spin opacity-50' : ''}`} />
-          <span>Locate Me</span>
+          <span>{t('location.locateMe')}</span>
         </button>
       </div>
     </div>

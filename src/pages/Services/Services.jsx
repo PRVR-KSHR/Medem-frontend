@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { 
   AlertTriangle, 
   Stethoscope, 
@@ -11,18 +12,20 @@ import {
   Droplet 
 } from "lucide-react";
 
-const SERVICES = [
-  { id: "emergency", title: "Emergency Care", desc: "150km radius rapid response dispatch.", icon: AlertTriangle, color: "text-red-400" },
-  { id: "doctor", title: "Doctor Consultation", desc: "Book OPD visits with specialists.", icon: Stethoscope, color: "text-[#DEDBC8]" },
-  { id: "lab-tests", title: "Lab Tests Booking", desc: "Home sample collection and reports.", icon: TestTube2, color: "text-[#DEDBC8]" },
-  { id: "medicine", title: "Medicine Delivery", desc: "Generic and branded meds delivered.", icon: Pill, color: "text-[#DEDBC8]" },
-  { id: "telemedicine", title: "Telemedicine", desc: "WebRTC video consultations.", icon: Video, color: "text-[#DEDBC8]" },
-  { id: "hospitals", title: "Hospitals & Clinics", desc: "Search nearby healthcare centers.", icon: Building2, color: "text-[#DEDBC8]" },
-  { id: "ambulance", title: "Ambulance Service", desc: "GPS tracking and live ETA.", icon: Car, color: "text-red-400" },
-  { id: "blood-bank", title: "Blood Bank", desc: "Find donors or request blood.", icon: Droplet, color: "text-red-500" },
-];
-
 export default function Services() {
+  const { t } = useTranslation();
+
+  const SERVICES = [
+    { id: "emergency", title: t('services.emergency'), desc: t('services.emergencyDesc'), icon: AlertTriangle, color: "text-red-400" },
+    { id: "doctor", title: t('services.opd'), desc: t('services.opdDesc'), icon: Stethoscope, color: "text-[#DEDBC8]" },
+    { id: "lab-tests", title: t('services.labTests'), desc: t('services.labTestsDesc'), icon: TestTube2, color: "text-[#DEDBC8]" },
+    { id: "medicine", title: t('services.medicine'), desc: t('services.medicineDesc'), icon: Pill, color: "text-[#DEDBC8]" },
+    { id: "telemedicine", title: t('services.telemedicine'), desc: t('services.telemedicineDesc'), icon: Video, color: "text-[#DEDBC8]" },
+    { id: "hospitals", title: t('services.hospitals'), desc: t('services.hospitalsDesc'), icon: Building2, color: "text-[#DEDBC8]" },
+    { id: "ambulance", title: t('services.ambulance'), desc: t('services.ambulanceDesc'), icon: Car, color: "text-red-400" },
+    { id: "blood-bank", title: t('services.bloodBank'), desc: t('services.bloodBankDesc'), icon: Droplet, color: "text-red-500" },
+  ];
+
   return (
     <div className="w-full flex-1 bg-black pt-24 pb-20 px-4 sm:px-6 lg:px-8 relative">
       <div className="absolute inset-0 bg-noise opacity-[0.10] pointer-events-none" />
@@ -30,13 +33,13 @@ export default function Services() {
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="mb-16">
           <span className="text-primary text-[10px] sm:text-xs tracking-widest uppercase mb-4 block">
-            Our Offerings
+            {t('servicesPage.kicker')}
           </span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif italic text-[#E1E0CC] mb-6">
-            Complete Healthcare Solutions
+            {t('servicesPage.title')}
           </h1>
           <p className="text-[#DEDBC8]/70 text-base md:text-lg max-w-2xl">
-            MedEm provides a full spectrum of medical services. Whether it's a routine consultation or a critical emergency, we're equipped to handle it.
+            {t('servicesPage.subtitle')}
           </p>
         </div>
 

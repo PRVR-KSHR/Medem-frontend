@@ -104,7 +104,10 @@
     "locateMe": "🔄 Locate Me",
     "map": "🗺️ Map",
     "nearby": "Nearby hospitals within 25km",
-    "error": "Unable to get location. Please enable geolocation."
+    "error": "Unable to get location. Please enable geolocation.",
+    "currentLocation": "Current Location",
+    "india": "India",
+    "unsupported": "Geolocation not supported by your browser."
   },
   "footer": {
     "tagline": "Your trusted source for expert healthcare services. Providing compassionate, personalized care for you and your family.",
@@ -128,5 +131,208 @@
     "termsOfService": "Terms of service",
     "privacyPolicy": "Privacy Policy",
     "copyright": "Shifa"
+  },
+  "layout": {
+    "footer": {
+      "tagline": "Rapid emergency response and complete medical coverage. We connect you with top doctors, labs, and pharmacies instantly.",
+      "emergencyButton": "Emergency 24/7 Dispatch",
+      "platform": "Platform",
+      "platformServices": "Services",
+      "findDoctor": "Find a Doctor",
+      "hospitals": "Hospitals",
+      "pharmacy": "Pharmacy",
+      "company": "Company",
+      "ourStory": "Our Story",
+      "contact": "Contact",
+      "joinDoctor": "Join as Doctor",
+      "connect": "Connect",
+      "connectDesc": "Stay updated on the latest platform features and healthcare networks.",
+      "copyright": "MedEm Platform",
+      "privacyPolicy": "Privacy Policy",
+      "termsOfService": "Terms of Service"
+    }
+  },
+  "home": {
+    "hero": {
+      "description": "Rapid emergency response and comprehensive medical care, accessible anytime. We connect you with top doctors, labs, and pharmacies instantly.",
+      "emergency": "Emergency 24/7",
+      "bookAppointment": "Book an appointment",
+      "callLine": "or Call us at 184562587412 for Appointment"
+    },
+    "quickActions": {
+      "ambulance": { "title": "Ambulance", "desc": "GPS Dispatch" },
+      "doctors": { "title": "Doctors", "desc": "Book OPD" },
+      "labTests": { "title": "Lab Tests", "desc": "Home Collect" },
+      "medicines": { "title": "Medicines", "desc": "2hr Delivery" }
+    },
+    "partnersTitle": "Trusted By Leading Healthcare Networks",
+    "servicesPreview": {
+      "kicker": "Integrated Healthcare",
+      "title": "Everything you need for your health, in one unified platform.",
+      "description": "From instant emergency dispatch localized via GPS to seamless telemedicine consultations and specialized hospital sourcing. MedEm is the connective tissue of modern healthcare.",
+      "viewAll": "View all services",
+      "cards": {
+        "emergency": { "title": "Emergency Care", "desc": "150km radius rapid response dispatch." },
+        "doctor": { "title": "Doctor Consultation", "desc": "Book OPD visits with specialists." },
+        "labTests": { "title": "Lab Tests Booking", "desc": "Home sample collection and reports." },
+        "medicine": { "title": "Medicine Delivery", "desc": "Generic and branded meds delivered." }
+      }
+    },
+    "contact": {
+      "title": "Get in Touch",
+      "subtitle": "Have a medical inquiry or need support? Reach out securely.",
+      "networkError": "Could not send message. Please try again."
+    },
+    "cta": {
+      "title": "Take MedEm everywhere.",
+      "subtitle": "Get instant access to top doctors, 24/7 emergency dispatch, and your live medical records right from your pocket. Download the app today.",
+      "getItOn": "Get it on",
+      "downloadOnThe": "Download on the"
+    }
+  },
+  "servicesPage": {
+    "kicker": "Our Offerings",
+    "title": "Complete Healthcare Solutions",
+    "subtitle": "MedEm provides a full spectrum of medical services. Whether it's a routine consultation or a critical emergency, we're equipped to handle it."
+  },
+  "aboutPage": {
+    "kicker": "Our Story",
+    "title": "Redefining access to critical healthcare.",
+    "description": "MedEm was founded on a simple but powerful premise: no one should have to wait for life-saving medical attention. By bridging the gap between advanced technology and highly vetted medical professionals, we have built a seamless ecosystem that dispatches ambulances, connects patients with doctors, and delivers essential medicines, all within minutes.",
+    "coreValues": "Our Core Values",
+    "mission": "\"To become the universal connective tissue of modern healthcare, ensuring that distance is never the barrier to survival.\"",
+    "values": {
+      "rapidResponse": { "title": "Rapid Response", "desc": "Every second counts in emergencies. Our systems are optimized for instant dispatch." },
+      "verified": { "title": "Verified Professionals", "desc": "We only partner with top-tier, licensed medical experts and certified hospitals." },
+      "patientFirst": { "title": "Patient First", "desc": "Your health, privacy, and well-being are the core of every decision we make." },
+      "universal": { "title": "Universal Access", "desc": "Breaking down geographical barriers to bring high-quality healthcare anywhere." }
+    }
+  },
+  "doctorsPage": {
+    "kicker": "Medical Professionals",
+    "title": "Find a Doctor",
+    "searchPlaceholder": "Search doctors, specialties...",
+    "perVisit": "/ visit",
+    "bookVisit": "Book Visit",
+    "filters": {
+      "all": "All",
+      "cardiologist": "Cardiologist",
+      "neurologist": "Neurologist",
+      "dermatologist": "Dermatologist",
+      "pediatrician": "Pediatrician",
+      "orthopedic": "Orthopedic"
+    },
+    "doctors": {
+      "drMarcus": { "name": "Dr. Marcus Chen", "spec": "Cardiologist", "exp": "15+ Years", "loc": "City General" },
+      "drElena": { "name": "Dr. Elena Rostova", "spec": "Neurologist", "exp": "10 Years", "loc": "Apex Center" },
+      "drJames": { "name": "Dr. James Wilson", "spec": "General Physician", "exp": "22 Years", "loc": "Metro Hub" },
+      "drSarah": { "name": "Dr. Sarah Jenkins", "spec": "Dermatologist", "exp": "8 Years", "loc": "Skin Clinic" }
+    }
+  },
+  "emergencyPage": {
+    "title": "Emergency Response",
+    "subtitle": "Every second counts. Dispatch an ambulance immediately or find the nearest critical care center.",
+    "dispatch": "EMERGENCY DISPATCH",
+    "nearestCare": "Nearest Critical Care",
+    "locating": "Locating...",
+    "refreshLocation": "Refresh Location",
+    "detectLocation": "Detect Location",
+    "currentLocation": "Current Location",
+    "geoCoordinates": "Geo coordinates: {{lat}}, {{lon}}",
+    "sampleLocation": "Sector 42, Metro Hospital Road, New Delhi",
+    "away": "{{distance}} away",
+    "drive": "{{time}} mins drive",
+    "ambulanceEta": "Ambulance ETA: {{minutes}}m",
+    "navigate": "Navigate",
+    "hospitals": {
+      "cityGeneral": "City General Hospital",
+      "metroHeart": "Metro Heart Institute",
+      "apexTrauma": "Apex Trauma Center"
+    }
+  },
+  "appointmentPage": {
+    "title": "Book Appointment",
+    "selectDoctor": "Select Doctor",
+    "doctorName": "Dr. Marcus Chen",
+    "doctorSpeciality": "Cardiologist",
+    "dateTime": "Date & Time",
+    "payment": "Payment",
+    "consultationFee": "Consultation Fee",
+    "total": "Total",
+    "paySecurely": "Pay Securely",
+    "confirmed": "Booking Confirmed!",
+    "confirmationText": "Your appointment with Dr. Marcus Chen is scheduled for Tomorrow at 10:30 AM.",
+    "back": "Back"
+  },
+  "authPage": {
+    "loginTitle": "Welcome Back",
+    "registerTitle": "Join MedEm",
+    "loginSubtitle": "Enter your credentials to access your account.",
+    "registerSubtitle": "Create an account to access unified healthcare.",
+    "patient": "Patient",
+    "doctor": "Doctor",
+    "emailAddress": "Email Address",
+    "emailPlaceholder": "you@example.com",
+    "password": "Password",
+    "forgot": "Forgot?",
+    "signIn": "Sign In",
+    "createAccount": "Create Account",
+    "noAccount": "Don't have an account? Sign up",
+    "hasAccount": "Already have an account? Sign in"
+  },
+  "medicinePage": {
+    "kicker": "Pharmacy Delivery",
+    "titleLine1": "Essential medicines,",
+    "titleLine2": "delivered in hours, not days.",
+    "subtitle": "Get prescribed and everyday medications from trusted local pharmacies with temperature-safe handling and real-time tracking.",
+    "expressDelivery": "Express Delivery Available",
+    "expressDeliveryDesc": "Critical orders can be prioritized through our emergency pharmacy lane where available.",
+    "typicalEta": "Typical ETA: under 2 hours",
+    "orderFlow": "Order flow",
+    "reminderTitle": "Running low on important meds?",
+    "reminderSubtitle": "Set refill reminders and place repeat orders in one tap.",
+    "orderMedicines": "Order Medicines",
+    "exploreMore": "Explore More Services",
+    "categories": {
+      "dailyPrescription": { "title": "Daily Prescription", "detail": "BP, diabetes, thyroid and long-term care refills" },
+      "acuteCare": { "title": "Acute Care", "detail": "Fever, cough, pain relief and short-cycle treatment" },
+      "wellness": { "title": "Wellness & OTC", "detail": "Supplements, nutrition, immunity and personal care" }
+    },
+    "flow": {
+      "uploadPrescription": { "title": "Upload Prescription", "desc": "Add a doctor prescription or select non-prescription products." },
+      "pharmacistReview": { "title": "Pharmacist Review", "desc": "Licensed pharmacists verify dosage and substitutions safely." },
+      "dispatchNearby": { "title": "Dispatch from Nearby Store", "desc": "Orders are routed to the closest partner pharmacy." },
+      "trackedDelivery": { "title": "Tracked Delivery", "desc": "Live tracking and secure handoff at your doorstep." }
+    }
+  },
+  "labTestsPage": {
+    "kicker": "Lab Services",
+    "titleLine1": "At-home lab tests,",
+    "titleLine2": "faster reports, calmer mornings.",
+    "subtitle": "Book diagnostics in minutes with doorstep sample collection, transparent pricing, and clinically verified reports.",
+    "homeCollectionWindow": "Home Collection Window",
+    "collectionWindowDesc": "6:30 AM to 9:30 PM in major cities. Real-time collector ETA shared before arrival.",
+    "averageReportDelivery": "Average report delivery: 24 hours",
+    "reportIn": "Report in {{turnaround}}",
+    "howItWorks": "How it works",
+    "urgentTitle": "Need urgent testing today?",
+    "urgentSubtitle": "Same-day collection available for priority tests in selected locations.",
+    "bookLabVisit": "Book Lab Visit",
+    "exploreMore": "Explore More Services",
+    "packages": {
+      "essential": { "name": "Essential Health Screen", "tests": "45 parameters", "price": "Starting at Rs. 799" },
+      "cardiac": { "name": "Cardiac Risk Panel", "tests": "28 parameters", "price": "Starting at Rs. 1299" },
+      "diabetes": { "name": "Diabetes & Thyroid Panel", "tests": "22 parameters", "price": "Starting at Rs. 999" }
+    },
+    "steps": {
+      "choosePackage": { "title": "Choose Package", "desc": "Select a test package and preferred home collection time slot." },
+      "sampleCollection": { "title": "Sample Collection", "desc": "Certified phlebotomist reaches your location with sterile kits." },
+      "labProcessing": { "title": "Lab Processing", "desc": "NABL-standard processing with strict quality controls." },
+      "digitalReports": { "title": "Digital Reports", "desc": "Get verified reports in app and on email with doctor-ready format." }
+    }
+  },
+  "simplePage": {
+    "description": "This route exists so all navigation links work. The full design is on the main landing page.",
+    "goToSection": "Go to {{title}} section"
   }
 }

@@ -1,12 +1,15 @@
 import { motion } from "motion/react";
 import { Activity, ShieldCheck, HeartPulse, Globe } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export default function About() {
+  const { t } = useTranslation();
+
   const VALUES = [
-    { title: "Rapid Response", desc: "Every second counts in emergencies. Our systems are optimized for instant dispatch.", icon: Activity },
-    { title: "Verified Professionals", desc: "We only partner with top-tier, licensed medical experts and certified hospitals.", icon: ShieldCheck },
-    { title: "Patient First", desc: "Your health, privacy, and well-being are the core of every decision we make.", icon: HeartPulse },
-    { title: "Universal Access", desc: "Breaking down geographical barriers to bring high-quality healthcare anywhere.", icon: Globe },
+    { title: t('aboutPage.values.rapidResponse.title'), desc: t('aboutPage.values.rapidResponse.desc'), icon: Activity },
+    { title: t('aboutPage.values.verified.title'), desc: t('aboutPage.values.verified.desc'), icon: ShieldCheck },
+    { title: t('aboutPage.values.patientFirst.title'), desc: t('aboutPage.values.patientFirst.desc'), icon: HeartPulse },
+    { title: t('aboutPage.values.universal.title'), desc: t('aboutPage.values.universal.desc'), icon: Globe },
   ];
 
   return (
@@ -17,13 +20,13 @@ export default function About() {
         {/* Hero Section */}
         <div className="text-center md:text-left">
           <span className="text-primary text-[10px] sm:text-xs tracking-widest uppercase mb-4 block">
-            Our Story
+            {t('aboutPage.kicker')}
           </span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif italic text-[#E1E0CC] mb-8">
-            Redefining access to critical healthcare.
+            {t('aboutPage.title')}
           </h1>
           <p className="text-[#DEDBC8]/70 text-base md:text-lg leading-relaxed max-w-3xl">
-            MedEm was founded on a simple but powerful premise: no one should have to wait for life-saving medical attention. By bridging the gap between advanced technology and highly vetted medical professionals, we have built a seamless ecosystem that dispatches ambulances, connects patients with doctors, and delivers essential medicines, all within minutes.
+            {t('aboutPage.description')}
           </p>
         </div>
 
@@ -31,7 +34,7 @@ export default function About() {
         <div>
           <div className="mb-12">
             <h2 className="text-2xl md:text-3xl font-serif italic text-[#E1E0CC] border-b border-[#DEDBC8]/10 pb-4 inline-block pr-12">
-              Our Core Values
+              {t('aboutPage.coreValues')}
             </h2>
           </div>
           
@@ -59,7 +62,7 @@ export default function About() {
         <div className="bg-[#101010] rounded-[2rem] p-8 md:p-16 border border-[#DEDBC8]/10 text-center relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-red-500/5 to-transparent pointer-events-none" />
           <h2 className="text-2xl md:text-4xl font-serif italic text-[#E1E0CC] max-w-2xl mx-auto leading-relaxed relative z-10">
-            "To become the universal connective tissue of modern healthcare, ensuring that distance is never the barrier to survival."
+            {t('aboutPage.mission')}
           </h2>
         </div>
       </div>

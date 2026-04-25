@@ -1,4 +1,4 @@
-import { motion, useInView, useScroll, useTransform } from "motion/react";
+import { motion, useInView } from "motion/react";
 import { useRef } from "react";
 
 export function WordsPullUp({
@@ -85,25 +85,24 @@ export function ScrollRevealText({
   className = "",
 }) {
   const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start 0.8", "end 0.2"],
-  });
+  const isInView = useInView(containerRef, { once: true, margin: "-10% 0px" });
 
   const chars = text.split("");
 
   return (
     <p ref={containerRef} className={`flex flex-wrap ${className}`}>
       {chars.map((char, i) => {
-        const charProgress = i / chars.length;
-        const opacity = useTransform(
-          scrollYProgress,
-          [charProgress - 0.1, charProgress + 0.05],
-          [0.2, 1]
-        );
-
         return (
-          <motion.span key={i} style={{ opacity }}>
+          <motion.span
+            key={i}
+            initial={{ opacity: 0.2, y: 8 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0.2, y: 8 }}
+            transition={{
+              delay: Math.min(i * 0.012, 0.9),
+              duration: 0.35,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+          >
             {char === " " ? "\u00A0" : char}
           </motion.span>
         );
