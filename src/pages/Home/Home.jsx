@@ -113,7 +113,7 @@ function HeroSection({ t }) {
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="text-primary/70 text-sm md:text-base leading-[1.4] max-w-sm"
+              className="text-primary/75 text-base md:text-lg leading-[1.45] max-w-sm ml-2 md:ml-5"
             >
               {t('home.hero.description')}
             </motion.p>
@@ -122,25 +122,30 @@ function HeroSection({ t }) {
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.7, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col sm:flex-row gap-4"
+              className="flex flex-col items-center gap-3"
             >
-              <Link to="/emergency" className="bg-red-500 text-white rounded-full flex justify-between items-center pl-6 pr-2 py-2 font-medium text-sm hover:bg-red-600 transition-colors">
-                {t('home.hero.emergency')}
-                <div className="bg-white/20 rounded-full w-8 h-8 ml-4 flex items-center justify-center">
-                  <PhoneCall className="w-4 h-4 text-white" />
-                </div>
-              </Link>
-              <div className="flex flex-col items-start gap-2">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link to="/emergency" className="bg-red-500 text-white rounded-full flex justify-between items-center pl-6 pr-2 py-2 font-medium text-sm hover:bg-red-600 transition-colors">
+                  {t('home.hero.emergency')}
+                  <div className="bg-white/20 rounded-full w-8 h-8 ml-4 flex items-center justify-center">
+                    <PhoneCall className="w-4 h-4 text-white" />
+                  </div>
+                </Link>
                 <Link to="/appointment" className="bg-primary text-black rounded-full flex justify-between items-center pl-6 pr-2 py-2 font-medium text-sm group hover:gap-2 transition-all">
                   {t('home.hero.bookAppointment')}
                   <div className="bg-black rounded-full w-8 h-8 ml-4 flex items-center justify-center transform group-hover:scale-105 transition-all">
                     <ArrowRight className="w-4 h-4 text-primary" />
                   </div>
                 </Link>
-                <p className="text-[#DEDBC8]/80 text-xs sm:text-sm">
-                  {t('home.hero.callLine')}
-                </p>
               </div>
+              <p className="text-center leading-tight tracking-wide text-white/90">
+                <span className="text-xs sm:text-sm">or </span>
+                <span className="text-sm sm:text-base font-bold uppercase">CALL US </span>
+                <span className="text-xs sm:text-sm">at </span>
+                <span className="text-sm sm:text-base italic font-semibold text-red-400 drop-shadow-[0_0_10px_rgba(248,113,113,0.45)]">
+                  {t('home.hero.phoneNumber')}
+                </span>
+              </p>
             </motion.div>
           </div>
         </div>

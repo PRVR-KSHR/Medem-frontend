@@ -157,7 +157,9 @@
       "description": "Rapid emergency response and comprehensive medical care, accessible anytime. We connect you with top doctors, labs, and pharmacies instantly.",
       "emergency": "Emergency 24/7",
       "bookAppointment": "Book an appointment",
-      "callLine": "or Call us at 184562587412 for Appointment"
+      "callLine": "or Call us at 184562587412",
+      "callPrefix": "or Call us at",
+      "phoneNumber": "184562587412"
     },
     "quickActions": {
       "ambulance": { "title": "Ambulance", "desc": "GPS Dispatch" },
