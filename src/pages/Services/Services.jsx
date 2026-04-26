@@ -1,6 +1,14 @@
 import { motion } from "motion/react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import emergencyBg from "../../assets/Service-bg/Emergency.png";
+import doctorBg from "../../assets/Service-bg/Doctor.png";
+import labBg from "../../assets/Service-bg/lab.png";
+import medicineBg from "../../assets/Service-bg/medicine.png";
+import telemedicineBg from "../../assets/Service-bg/Telemedcine.png";
+import hospitalsBg from "../../assets/Service-bg/Hospital & clinic.png";
+import ambulanceBg from "../../assets/Service-bg/Ambulance Service.png";
+import bloodBankBg from "../../assets/Service-bg/Blood bank.png";
 import { 
   AlertTriangle, 
   Stethoscope, 
@@ -16,14 +24,14 @@ export default function Services() {
   const { t } = useTranslation();
 
   const SERVICES = [
-    { id: "emergency", title: t('services.emergency'), desc: t('services.emergencyDesc'), icon: AlertTriangle, color: "text-red-400" },
-    { id: "doctor", title: t('services.opd'), desc: t('services.opdDesc'), icon: Stethoscope, color: "text-[#DEDBC8]" },
-    { id: "lab-tests", title: t('services.labTests'), desc: t('services.labTestsDesc'), icon: TestTube2, color: "text-[#DEDBC8]" },
-    { id: "medicine", title: t('services.medicine'), desc: t('services.medicineDesc'), icon: Pill, color: "text-[#DEDBC8]" },
-    { id: "telemedicine", title: t('services.telemedicine'), desc: t('services.telemedicineDesc'), icon: Video, color: "text-[#DEDBC8]" },
-    { id: "hospitals", title: t('services.hospitals'), desc: t('services.hospitalsDesc'), icon: Building2, color: "text-[#DEDBC8]" },
-    { id: "ambulance", title: t('services.ambulance'), desc: t('services.ambulanceDesc'), icon: Car, color: "text-red-400" },
-    { id: "blood-bank", title: t('services.bloodBank'), desc: t('services.bloodBankDesc'), icon: Droplet, color: "text-red-500" },
+    { id: "emergency", title: t('services.emergency'), desc: t('services.emergencyDesc'), icon: AlertTriangle, color: "text-red-400", bg: emergencyBg },
+    { id: "doctor", title: t('services.opd'), desc: t('services.opdDesc'), icon: Stethoscope, color: "text-[#DEDBC8]", bg: doctorBg },
+    { id: "lab-tests", title: t('services.labTests'), desc: t('services.labTestsDesc'), icon: TestTube2, color: "text-[#DEDBC8]", bg: labBg },
+    { id: "medicine", title: t('services.medicine'), desc: t('services.medicineDesc'), icon: Pill, color: "text-[#DEDBC8]", bg: medicineBg },
+    { id: "telemedicine", title: t('services.telemedicine'), desc: t('services.telemedicineDesc'), icon: Video, color: "text-[#DEDBC8]", bg: telemedicineBg },
+    { id: "hospitals", title: t('services.hospitals'), desc: t('services.hospitalsDesc'), icon: Building2, color: "text-[#DEDBC8]", bg: hospitalsBg },
+    { id: "ambulance", title: t('services.ambulance'), desc: t('services.ambulanceDesc'), icon: Car, color: "text-red-400", bg: ambulanceBg },
+    { id: "blood-bank", title: t('services.bloodBank'), desc: t('services.bloodBankDesc'), icon: Droplet, color: "text-red-500", bg: bloodBankBg },
   ];
 
   return (
@@ -53,13 +61,20 @@ export default function Services() {
             >
               <Link 
                 to={`/services/${service.id}`}
-                className="block h-full bg-[#101010] hover:bg-[#151515] rounded-2xl p-8 border border-[#DEDBC8]/10 shadow-[0_20px_40px_rgba(0,0,0,0.5)] transition-all group"
+                className="relative block h-full overflow-hidden rounded-2xl p-8 border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.5),inset_0_0_0_1px_rgba(255,255,255,0.04)] transition-all group"
+                style={{
+                  backgroundImage: `linear-gradient(90deg, rgba(6, 8, 13, 0.96) 0%, rgba(6, 8, 13, 0.84) 58%, rgba(6, 8, 13, 0.38) 100%), url(${service.bg})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "right center",
+                  backgroundRepeat: "no-repeat",
+                }}
               >
-                <div className="bg-[#212121] w-14 h-14 rounded-xl flex items-center justify-center mb-8 border border-[#DEDBC8]/5 group-hover:scale-110 transition-transform">
+                <div className="absolute inset-0 backdrop-blur-[1.5px] opacity-70 pointer-events-none" />
+                <div className="relative z-10 bg-[#212121]/80 w-14 h-14 rounded-xl flex items-center justify-center mb-8 border border-white/10 group-hover:scale-110 transition-transform">
                   <service.icon className={`w-6 h-6 ${service.color}`} />
                 </div>
-                <h3 className="text-[#E1E0CC] text-xl font-medium mb-3">{service.title}</h3>
-                <p className="text-[#DEDBC8]/60 text-sm leading-relaxed">{service.desc}</p>
+                <h3 className="relative z-10 text-[#E1E0CC] text-xl font-medium mb-3 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">{service.title}</h3>
+                <p className="relative z-10 text-[#DEDBC8]/75 text-sm leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.65)]">{service.desc}</p>
               </Link>
             </motion.div>
           ))}

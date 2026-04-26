@@ -1,55 +1,12 @@
 import { ArrowRight, PhoneCall, Stethoscope, TestTube2, Pill, Activity, AlertTriangle } from "lucide-react";
 import { motion } from "motion/react";
-import { useRef, useState, useEffect, useMemo } from "react";
+import { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { WordsPullUp, ScrollRevealText } from "../../components/TypographyAnim.jsx";
 
 export default function Home() {
   const { t } = useTranslation();
-  const [form, setForm] = useState({ name: '', email: '', message: '' });
-  const [errors, setErrors] = useState({});
-  const [submitState, setSubmitState] = useState({ status: 'idle', message: '' });
-
-  const apiUrl = useMemo(() => import.meta.env.VITE_API_URL || 'http://localhost:5000', []);
-
-  function validateContact({ name, email, message }) {
-    const errs = {};
-    if (!name || name.trim().length < 2) errs.name = t('contact.validation.name');
-    if (!email || !/^\S+@\S+\.\S+$/.test(email)) errs.email = t('contact.validation.email');
-    if (!message || message.trim().length < 10) errs.message = t('contact.validation.message');
-    return errs;
-  }
-
-  async function onSubmit(e) {
-    e.preventDefault();
-    const nextErrors = validateContact(form);
-    setErrors(nextErrors);
-    if (Object.keys(nextErrors).length) return;
-
-    setSubmitState({ status: 'loading', message: '' });
-    try {
-      const res = await fetch(`${apiUrl}/api/contact`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form)
-      });
-      const json = await res.json();
-      if (!res.ok) {
-        const fields = json?.error?.fields || [];
-        const fieldMap = {};
-        for (const f of fields) fieldMap[f.field] = f.message;
-        setErrors(fieldMap);
-        setSubmitState({ status: 'error', message: t('contact.error') });
-        return;
-      }
-      setSubmitState({ status: 'success', message: t('contact.success') });
-      setForm({ name: '', email: '', message: '' });
-      setErrors({});
-    } catch {
-      setSubmitState({ status: 'error', message: t('home.contact.networkError') });
-    }
-  }
 
   return (
     <div className="w-full">
@@ -57,14 +14,8 @@ export default function Home() {
       <QuickActionsSection t={t} />
       <PartnersScrollerSection t={t} />
       <ServicesPreviewSection t={t} />
-      <ContactSection 
-        t={t}
-        form={form} 
-        setForm={setForm} 
-        errors={errors} 
-        submitState={submitState} 
-        onSubmit={onSubmit} 
-      />
+      <MedicalTeamSection t={t} />
+      <TestimonialsSection t={t} />
       <CTASection t={t} />
     </div>
   );
@@ -72,6 +23,10 @@ export default function Home() {
 
 import heroVideo from "../../assets/partners/143379-782178675.mp4";
 import LocationWidget from "../../components/LocationWidget/LocationWidget.jsx";
+import emergencyBg from "../../assets/Service-bg/Emergency.png";
+import doctorBg from "../../assets/Service-bg/Doctor.png";
+import labBg from "../../assets/Service-bg/lab.png";
+import medicineBg from "../../assets/Service-bg/medicine.png";
 
 function HeroSection({ t }) {
   const videoRef = useRef(null);
@@ -83,7 +38,7 @@ function HeroSection({ t }) {
   }, []);
 
   return (
-    <section className="h-[100vh] min-h-[600px] w-full relative bg-black">
+    <section className="h-[110vh] min-h-[660px] w-full relative bg-black">
       <div className="w-full h-full relative overflow-hidden bg-[#1a1a1a] group">
         <video
           ref={videoRef}
@@ -124,28 +79,28 @@ function HeroSection({ t }) {
               transition={{ delay: 0.7, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="flex flex-col items-center gap-3"
             >
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link to="/emergency" className="bg-red-500 text-white rounded-full flex justify-between items-center pl-6 pr-2 py-2 font-medium text-sm hover:bg-red-600 transition-colors">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center sm:items-start">
+                <Link to="/emergency" className="bg-red-500 w-full sm:w-auto text-white rounded-full flex justify-between items-center pl-6 pr-2 py-2 font-medium text-sm hover:bg-red-600 transition-colors">
                   {t('home.hero.emergency')}
-                  <div className="bg-white/20 rounded-full w-8 h-8 ml-4 flex items-center justify-center">
+                  <div className="bg-white/20 rounded-full w-8 h-8 ml-4 flex items-center justify-center shrink-0">
                     <PhoneCall className="w-4 h-4 text-white" />
                   </div>
                 </Link>
-                <Link to="/appointment" className="bg-primary text-black rounded-full flex justify-between items-center pl-6 pr-2 py-2 font-medium text-sm group hover:gap-2 transition-all">
-                  {t('home.hero.bookAppointment')}
-                  <div className="bg-black rounded-full w-8 h-8 ml-4 flex items-center justify-center transform group-hover:scale-105 transition-all">
-                    <ArrowRight className="w-4 h-4 text-primary" />
-                  </div>
-                </Link>
+                <div className="flex flex-col gap-2 w-full sm:w-auto items-center sm:items-end">
+                  <Link to="/appointment" className="bg-primary w-full sm:w-auto text-black rounded-full flex justify-between items-center pl-6 pr-2 py-2 font-medium text-sm group hover:gap-2 transition-all">
+                    {t('home.hero.bookAppointment')}
+                    <div className="bg-black rounded-full w-8 h-8 ml-4 flex items-center justify-center shrink-0 transform group-hover:scale-105 transition-all">
+                      <ArrowRight className="w-4 h-4 text-primary" />
+                    </div>
+                  </Link>
+                  <p className="text-right text-white/90 font-medium sm:pr-4">
+                    <span className="text-xs sm:text-sm mr-1">{t('home.hero.callPrefix')}</span>
+                    <span className="text-sm border-b leading-tight sm:text-base text-red-500 font-semibold drop-shadow-[0_0_10px_rgba(248,113,113,0.45)]">
+                      {t('home.hero.phoneNumber')}
+                    </span>
+                  </p>
+                </div>
               </div>
-              <p className="text-center leading-tight tracking-wide text-white/90">
-                <span className="text-xs sm:text-sm">or </span>
-                <span className="text-sm sm:text-base font-bold uppercase">CALL US </span>
-                <span className="text-xs sm:text-sm">at </span>
-                <span className="text-sm sm:text-base italic font-semibold text-red-400 drop-shadow-[0_0_10px_rgba(248,113,113,0.45)]">
-                  {t('home.hero.phoneNumber')}
-                </span>
-              </p>
             </motion.div>
           </div>
         </div>
@@ -242,10 +197,10 @@ function ServicesPreviewSection({ t }) {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {[
-            { id: "emergency", title: t('home.servicesPreview.cards.emergency.title'), desc: t('home.servicesPreview.cards.emergency.desc'), icon: AlertTriangle, color: "text-red-400" },
-            { id: "doctor", title: t('home.servicesPreview.cards.doctor.title'), desc: t('home.servicesPreview.cards.doctor.desc'), icon: Stethoscope, color: "text-[#DEDBC8]" },
-            { id: "lab-tests", title: t('home.servicesPreview.cards.labTests.title'), desc: t('home.servicesPreview.cards.labTests.desc'), icon: TestTube2, color: "text-[#DEDBC8]" },
-            { id: "medicine", title: t('home.servicesPreview.cards.medicine.title'), desc: t('home.servicesPreview.cards.medicine.desc'), icon: Pill, color: "text-[#DEDBC8]" }
+            { id: "emergency", title: t('home.servicesPreview.cards.emergency.title'), desc: t('home.servicesPreview.cards.emergency.desc'), icon: AlertTriangle, color: "text-red-400", bg: emergencyBg },
+            { id: "doctor", title: t('home.servicesPreview.cards.doctor.title'), desc: t('home.servicesPreview.cards.doctor.desc'), icon: Stethoscope, color: "text-[#DEDBC8]", bg: doctorBg },
+            { id: "lab-tests", title: t('home.servicesPreview.cards.labTests.title'), desc: t('home.servicesPreview.cards.labTests.desc'), icon: TestTube2, color: "text-[#DEDBC8]", bg: labBg },
+            { id: "medicine", title: t('home.servicesPreview.cards.medicine.title'), desc: t('home.servicesPreview.cards.medicine.desc'), icon: Pill, color: "text-[#DEDBC8]", bg: medicineBg }
           ].map((service, index) => (
             <motion.div
               key={service.id}
@@ -256,13 +211,20 @@ function ServicesPreviewSection({ t }) {
             >
               <Link 
                 to={`/services/${service.id}`}
-                className="block h-full bg-[#101010] hover:bg-[#151515] rounded-2xl p-8 border border-[#DEDBC8]/10 shadow-[0_20px_40px_rgba(0,0,0,0.5)] transition-all group"
+                className="relative block h-full overflow-hidden rounded-2xl p-8 border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.5),inset_0_0_0_1px_rgba(255,255,255,0.04)] transition-all group"
+                style={{
+                  backgroundImage: `linear-gradient(90deg, rgba(6, 8, 13, 0.96) 0%, rgba(6, 8, 13, 0.84) 58%, rgba(6, 8, 13, 0.38) 100%), url(${service.bg})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "right center",
+                  backgroundRepeat: "no-repeat",
+                }}
               >
-                <div className="bg-[#212121] w-14 h-14 rounded-xl flex items-center justify-center mb-8 border border-[#DEDBC8]/5 group-hover:scale-110 transition-transform">
+                <div className="absolute inset-0 backdrop-blur-[1.5px] opacity-70 pointer-events-none" />
+                <div className="relative z-10 bg-[#212121]/80 w-14 h-14 rounded-xl flex items-center justify-center mb-8 border border-white/10 group-hover:scale-110 transition-transform">
                   <service.icon className={`w-6 h-6 ${service.color}`} />
                 </div>
-                <h3 className="text-[#E1E0CC] text-xl font-medium mb-3">{service.title}</h3>
-                <p className="text-[#DEDBC8]/60 text-sm leading-relaxed">{service.desc}</p>
+                <h3 className="relative z-10 text-[#E1E0CC] text-xl font-medium mb-3 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">{service.title}</h3>
+                <p className="relative z-10 text-[#DEDBC8]/75 text-sm leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.65)]">{service.desc}</p>
               </Link>
             </motion.div>
           ))}
@@ -278,70 +240,144 @@ function ServicesPreviewSection({ t }) {
   );
 }
 
-function ContactSection({ t, form, setForm, errors, submitState, onSubmit }) {
+function MedicalTeamSection({ t }) {
+  const members = [
+    {
+      name: t('home.medicalTeam.members.0.name'),
+      speciality: t('home.medicalTeam.members.0.speciality'),
+      experience: t('home.medicalTeam.members.0.experience'),
+      shift: t('home.medicalTeam.members.0.shift')
+    },
+    {
+      name: t('home.medicalTeam.members.1.name'),
+      speciality: t('home.medicalTeam.members.1.speciality'),
+      experience: t('home.medicalTeam.members.1.experience'),
+      shift: t('home.medicalTeam.members.1.shift')
+    },
+    {
+      name: t('home.medicalTeam.members.2.name'),
+      speciality: t('home.medicalTeam.members.2.speciality'),
+      experience: t('home.medicalTeam.members.2.experience'),
+      shift: t('home.medicalTeam.members.2.shift')
+    },
+    {
+      name: t('home.medicalTeam.members.3.name'),
+      speciality: t('home.medicalTeam.members.3.speciality'),
+      experience: t('home.medicalTeam.members.3.experience'),
+      shift: t('home.medicalTeam.members.3.shift')
+    }
+  ];
+
   return (
-    <section className="bg-[#101010] py-20 px-4 md:px-6 w-full border-t border-[#DEDBC8]/10">
-      <div className="max-w-4xl mx-auto bg-black p-8 md:p-12 rounded-3xl border border-[#DEDBC8]/10 shadow-[0_20px_40px_rgba(0,0,0,0.4)]">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-serif italic text-[#E1E0CC] mb-2">{t('home.contact.title')}</h2>
-          <p className="text-[#DEDBC8]/60 text-sm">{t('home.contact.subtitle')}</p>
+    <section className="bg-black py-20 px-4 md:px-6 w-full border-t border-[#DEDBC8]/10">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+          <div className="max-w-2xl">
+            <p className="text-primary text-[10px] sm:text-xs tracking-[0.22em] uppercase mb-3">{t('home.medicalTeam.kicker')}</p>
+            <h2 className="text-3xl md:text-5xl font-serif italic text-[#E1E0CC] leading-tight mb-4">{t('home.medicalTeam.title')}</h2>
+            <p className="text-[#DEDBC8]/65 text-sm md:text-base leading-relaxed">{t('home.medicalTeam.subtitle')}</p>
+          </div>
+
+          <Link
+            to="/doctors"
+            className="inline-flex items-center gap-2 text-sm text-[#DEDBC8] hover:text-white transition-colors self-start md:self-auto"
+          >
+            {t('home.medicalTeam.cta')}
+            <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
-        
-        <form onSubmit={onSubmit} className="flex flex-col gap-6" noValidate>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <label className="flex flex-col gap-2">
-              <span className="text-[#DEDBC8] text-sm tracking-wide">{t('contact.fullName')}</span>
-              <input 
-                type="text" 
-                value={form.name}
-                onChange={(e) => setForm(p => ({ ...p, name: e.target.value }))}
-                className="bg-[#151515] border border-[#DEDBC8]/20 focus:border-primary text-white rounded-lg px-4 py-3 outline-none transition-colors"
-                placeholder={t('contact.yourName')}
-              />
-              {errors.name && <span className="text-red-400 text-xs">{errors.name}</span>}
-            </label>
-            
-            <label className="flex flex-col gap-2">
-              <span className="text-[#DEDBC8] text-sm tracking-wide">{t('contact.email_label')}</span>
-              <input 
-                type="email" 
-                value={form.email}
-                onChange={(e) => setForm(p => ({ ...p, email: e.target.value }))}
-                className="bg-[#151515] border border-[#DEDBC8]/20 focus:border-primary text-white rounded-lg px-4 py-3 outline-none transition-colors"
-                placeholder={t('contact.email')}
-              />
-              {errors.email && <span className="text-red-400 text-xs">{errors.email}</span>}
-            </label>
-          </div>
-          
-          <label className="flex flex-col gap-2">
-            <span className="text-[#DEDBC8] text-sm tracking-wide">{t('contact.message')}</span>
-            <textarea 
-              value={form.message}
-              onChange={(e) => setForm(p => ({ ...p, message: e.target.value }))}
-              rows="4"
-              className="bg-[#151515] border border-[#DEDBC8]/20 focus:border-primary text-white rounded-lg px-4 py-3 outline-none transition-colors resize-none"
-              placeholder={t('contact.howCanWeHelp')}
-            ></textarea>
-            {errors.message && <span className="text-red-400 text-xs">{errors.message}</span>}
-          </label>
-          
-          <div className="flex flex-col sm:flex-row items-center gap-4">
-            <button 
-              type="submit" 
-              disabled={submitState.status === 'loading'}
-              className="bg-primary text-black font-medium px-8 py-3 rounded-full hover:bg-white transition-colors"
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-5">
+          {members.map((member, index) => (
+            <motion.article
+              key={member.name}
+              initial={{ y: 18, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ delay: index * 0.1, duration: 0.45 }}
+              className="group bg-[#101010] border border-[#DEDBC8]/10 rounded-2xl p-6 shadow-[0_16px_36px_rgba(0,0,0,0.45)]"
             >
-              {submitState.status === 'loading' ? t('contact.sending') : t('contact.send')}
-            </button>
-            
-            {submitState.message && (
-              <span className={`text-sm ${submitState.status === 'error' ? 'text-red-400' : 'text-green-400'}`}>
-                {submitState.message}
-              </span>
-            )}
+              <div className="w-12 h-12 rounded-xl border border-[#DEDBC8]/20 bg-[#151515] text-[#E1E0CC] flex items-center justify-center text-sm font-medium mb-5">
+                {member.name.split(' ').slice(-1)[0]?.slice(0, 2).toUpperCase()}
+              </div>
+
+              <h3 className="text-[#E1E0CC] text-lg font-medium mb-1">{member.name}</h3>
+              <p className="text-primary text-sm mb-4">{member.speciality}</p>
+
+              <div className="pt-4 border-t border-[#DEDBC8]/10 grid grid-cols-1 gap-2 text-xs text-[#DEDBC8]/65">
+                <p>{member.experience}</p>
+                <p>{member.shift}</p>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function TestimonialsSection({ t }) {
+  const reviews = [
+    {
+      text: t('home.testimonials.cards.0.text'),
+      name: t('home.testimonials.cards.0.name'),
+      role: t('home.testimonials.cards.0.role')
+    },
+    {
+      text: t('home.testimonials.cards.1.text'),
+      name: t('home.testimonials.cards.1.name'),
+      role: t('home.testimonials.cards.1.role')
+    },
+    {
+      text: t('home.testimonials.cards.2.text'),
+      name: t('home.testimonials.cards.2.name'),
+      role: t('home.testimonials.cards.2.role')
+    }
+  ];
+
+  return (
+    <section className="bg-black py-20 px-4 md:px-6 w-full border-t border-[#DEDBC8]/10">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
+        <div className="lg:col-span-4 bg-[#101010] border border-[#DEDBC8]/10 rounded-3xl p-8 shadow-[0_20px_40px_rgba(0,0,0,0.45)]">
+          <p className="text-primary text-[10px] sm:text-xs tracking-[0.22em] uppercase mb-3">{t('home.testimonials.kicker')}</p>
+          <h2 className="text-3xl md:text-4xl font-serif italic text-[#E1E0CC] leading-tight mb-5">{t('home.testimonials.title')}</h2>
+          <p className="text-[#DEDBC8]/60 text-sm leading-relaxed">{t('home.testimonials.subtitle')}</p>
+          <div className="mt-8 inline-flex items-center gap-3 px-4 py-2 rounded-full border border-[#DEDBC8]/15 bg-[#151515] text-xs text-[#DEDBC8]/80">
+            <span className="text-primary">★</span>
+            {t('home.testimonials.rating')}
           </div>
-        </form>
+        </div>
+
+        <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+          {reviews.map((review, index) => (
+            <motion.article
+              key={review.name}
+              initial={{ y: 22, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true, margin: '-70px' }}
+              transition={{ delay: index * 0.1, duration: 0.5 }}
+              className="bg-[#101010] border border-[#DEDBC8]/10 rounded-2xl p-6 shadow-[0_20px_40px_rgba(0,0,0,0.45)]"
+            >
+              <p className="text-[#DEDBC8]/80 text-sm leading-relaxed mb-6 min-h-[130px]">“{review.text}”</p>
+              <div className="pt-5 border-t border-[#DEDBC8]/10 flex items-center justify-between gap-4">
+                <div>
+                  <p className="text-[#E1E0CC] text-sm font-medium">{review.name}</p>
+                  <p className="text-[#DEDBC8]/50 text-xs mt-1">{review.role}</p>
+                </div>
+                <span className="text-primary text-xs tracking-[0.18em]">★★★★★</span>
+              </div>
+            </motion.article>
+          ))}
+          <div className="md:col-span-3 flex justify-center md:justify-end pt-2">
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 text-sm text-[#DEDBC8] hover:text-white transition-colors"
+            >
+              {t('home.testimonials.cta')}
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
       </div>
     </section>
   );

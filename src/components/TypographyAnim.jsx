@@ -87,23 +87,24 @@ export function ScrollRevealText({
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { once: true, margin: "-10% 0px" });
 
-  const chars = text.split("");
+  const words = text.split(" ");
 
   return (
     <p ref={containerRef} className={`flex flex-wrap ${className}`}>
-      {chars.map((char, i) => {
+      {words.map((word, i) => {
         return (
           <motion.span
             key={i}
             initial={{ opacity: 0.2, y: 8 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0.2, y: 8 }}
             transition={{
-              delay: Math.min(i * 0.012, 0.9),
+              delay: Math.min(i * 0.03, 0.9),
               duration: 0.35,
               ease: [0.22, 1, 0.36, 1],
             }}
+            className="mr-[0.25em] last:mr-0"
           >
-            {char === " " ? "\u00A0" : char}
+            {word}
           </motion.span>
         );
       })}

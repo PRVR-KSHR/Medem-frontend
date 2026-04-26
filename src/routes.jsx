@@ -10,6 +10,7 @@ import Emergency from './pages/Emergency/Emergency.jsx'
 import Auth from './pages/Auth/Auth.jsx'
 import LabTests from './pages/LabTests/LabTests.jsx'
 import Medicine from './pages/Medicine/Medicine.jsx'
+import Contact from './pages/Contact/Contact.jsx'
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +22,7 @@ export const router = createBrowserRouter([
       { path: '/doctors', element: <Doctors /> },
       { path: '/appointment', element: <Appointment /> },
       { path: '/emergency', element: <Emergency /> },
+      { path: '/contact', element: <Contact /> },
       { path: '/lab-tests', element: <LabTests /> },
       { path: '/medicine', element: <Medicine /> },
       { path: '/services/lab-tests', element: <LabTests /> },

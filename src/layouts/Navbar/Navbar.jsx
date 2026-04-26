@@ -50,7 +50,6 @@ export default function Navbar({ onEmergencyClick, onSignInClick }) {
         <div className={styles.brand}>
           <Link to="/" className={styles.logo} aria-label="MedEm home">
             <img className={styles.logoImg} src={logo} alt="MedEm logo" />
-            <span className={styles.word}>MedEm</span>
           </Link>
         </div>
 

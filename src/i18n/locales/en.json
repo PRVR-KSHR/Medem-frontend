@@ -4,6 +4,7 @@
     "services": "Services",
     "doctors": "Doctors",
     "about": "About",
+    "contact": "Contact",
     "emergency": "Emergency",
     "register": "Register"
   },
@@ -88,11 +89,26 @@
     "sending": "Sending…",
     "success": "Message sent successfully.",
     "error": "Please fix the highlighted fields.",
+    "networkError": "Could not send message. Please try again.",
     "validation": {
       "name": "Please enter your name.",
       "email": "Please enter a valid email address.",
       "message": "Please enter a message (min 10 characters)."
     }
+  },
+  "contactPage": {
+    "kicker": "Contact Team",
+    "title": "Talk to MedEm support and care coordinators.",
+    "subtitle": "Need assistance with appointments, emergency services, medicine delivery, or lab test logistics? Our team is available to help you quickly.",
+    "detailsTitle": "Contact details",
+    "detailsSubtitle": "Choose the fastest channel and we will respond as soon as possible.",
+    "phoneTitle": "Phone support",
+    "emailTitle": "Email support",
+    "addressTitle": "Head office",
+    "hoursTitle": "Support hours",
+    "hoursValue": "Mon - Sun, 24/7 emergency desk",
+    "officeTitle": "Regional operations",
+    "officeValue": "Delhi, Mumbai, Kolkata, Bengaluru"
   },
   "cta": {
     "title": "Get Expert Medical Care at Your Fingertips!",
@@ -180,6 +196,62 @@
         "medicine": { "title": "Medicine Delivery", "desc": "Generic and branded meds delivered." }
       }
     },
+    "medicalTeam": {
+      "kicker": "Clinical Excellence",
+      "title": "Our medical team, ready around the clock.",
+      "subtitle": "Board-certified doctors and specialists working in synchronized shifts to deliver faster diagnosis, safer treatment paths, and better recovery outcomes.",
+      "cta": "Meet all doctors",
+      "members": [
+        {
+          "name": "Dr. Marcus Chen",
+          "speciality": "Cardiology",
+          "experience": "15+ years clinical practice",
+          "shift": "Emergency and cardiac rounds"
+        },
+        {
+          "name": "Dr. Elena Rostova",
+          "speciality": "Neurology",
+          "experience": "10 years neuro care",
+          "shift": "Tele-consult and in-person"
+        },
+        {
+          "name": "Dr. Sarah Jenkins",
+          "speciality": "Dermatology",
+          "experience": "8 years patient care",
+          "shift": "Day clinic and follow-ups"
+        },
+        {
+          "name": "Dr. James Wilson",
+          "speciality": "General Medicine",
+          "experience": "22+ years primary care",
+          "shift": "24/7 triage coordination"
+        }
+      ]
+    },
+    "testimonials": {
+      "kicker": "Patient stories",
+      "title": "Read reviews, ride with confidence.",
+      "subtitle": "Verified feedback from patients and families who used MedEm services in urgent and routine care moments.",
+      "rating": "4.8/5 trusted rating from 5,200+ reviews",
+      "cta": "Need support? Contact our team",
+      "cards": [
+        {
+          "text": "Booking an ambulance was fast and the emergency team reached us within minutes. The coordination was smooth from start to hospital handoff.",
+          "name": "Karan S.",
+          "role": "Emergency Response"
+        },
+        {
+          "text": "Doctor consultation and medicine delivery both happened on time. I received updates at every step and all prescriptions were clear.",
+          "name": "Catherine M.",
+          "role": "Remote Consultation"
+        },
+        {
+          "text": "Lab sample collection was professional and the report was shared quickly. The whole process felt reliable and well-managed.",
+          "name": "Peter J.",
+          "role": "Diagnostics"
+        }
+      ]
+    },
     "contact": {
       "title": "Get in Touch",
       "subtitle": "Have a medical inquiry or need support? Reach out securely.",
@@ -201,8 +273,41 @@
     "kicker": "Our Story",
     "title": "Redefining access to critical healthcare.",
     "description": "MedEm was founded on a simple but powerful premise: no one should have to wait for life-saving medical attention. By bridging the gap between advanced technology and highly vetted medical professionals, we have built a seamless ecosystem that dispatches ambulances, connects patients with doctors, and delivers essential medicines, all within minutes.",
+    "whoWeAre": {
+      "title": "Who we are",
+      "p1": "MedEm is a digital-first healthcare platform built for real-world urgency. We combine emergency logistics, doctor networks, diagnostics, and medicine fulfillment into one coordinated experience so patients do not need to navigate fragmented systems during stressful moments.",
+      "p2": "Our team includes clinicians, operations specialists, and technology engineers focused on one outcome: making high-quality care faster, safer, and easier to access for every household."
+    },
+    "whatWeDo": {
+      "title": "What we do",
+      "items": [
+        {
+          "title": "Emergency dispatch",
+          "desc": "Rapid ambulance routing with live status updates and nearest-facility matching for critical cases."
+        },
+        {
+          "title": "Doctor access",
+          "desc": "Book in-person or remote consultations with vetted specialists and structured follow-up care."
+        },
+        {
+          "title": "Diagnostic services",
+          "desc": "At-home sample collection and trusted lab processing with secure digital reports."
+        },
+        {
+          "title": "Medicine support",
+          "desc": "Prescription verification and medicine delivery with refill continuity and tracking."
+        }
+      ]
+    },
+    "impact": [
+      { "label": "Patients supported", "value": "120K+" },
+      { "label": "Partner doctors", "value": "1,500+" },
+      { "label": "Cities covered", "value": "90+" },
+      { "label": "Avg. response time", "value": "12 min" }
+    ],
     "coreValues": "Our Core Values",
     "mission": "\"To become the universal connective tissue of modern healthcare, ensuring that distance is never the barrier to survival.\"",
+    "missionSubtext": "Every feature we build, from dispatch algorithms to patient communication workflows, is designed to reduce uncertainty and accelerate access to trusted care.",
     "values": {
       "rapidResponse": { "title": "Rapid Response", "desc": "Every second counts in emergencies. Our systems are optimized for instant dispatch." },
       "verified": { "title": "Verified Professionals", "desc": "We only partner with top-tier, licensed medical experts and certified hospitals." },
@@ -332,9 +437,5 @@
       "labProcessing": { "title": "Lab Processing", "desc": "NABL-standard processing with strict quality controls." },
       "digitalReports": { "title": "Digital Reports", "desc": "Get verified reports in app and on email with doctor-ready format." }
     }
-  },
-  "simplePage": {
-    "description": "This route exists so all navigation links work. The full design is on the main landing page.",
-    "goToSection": "Go to {{title}} section"
   }
 }

@@ -18,9 +18,9 @@ export default function LanguageSelector() {
       aria-label={currentLang === 'en' ? 'Switch language to Hindi' : 'Switch language to English'}
       title={currentLang === 'en' ? 'Switch to Hindi' : 'Switch to English'}
     >
-      <span className={styles.current}>{currentLang === 'en' ? 'EN' : 'हिंदी'}</span>
-      <span className={styles.divider}>/</span>
-      <span className={styles.next}>{currentLang === 'en' ? 'हिंदी' : 'EN'}</span>
+      <span className={styles.current}>
+        {currentLang === 'en' ? 'हिंदी' : 'English'}
+      </span>
     </button>
   )
 }

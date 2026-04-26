@@ -24,6 +24,10 @@ export default function Layout() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, [location.pathname]);
+
   const isHome = location.pathname === "/";
 
   const navLinks = [
@@ -31,6 +35,7 @@ export default function Layout() {
     { key: "about", path: "/about" },
     { key: "services", path: "/services" },
     { key: "doctors", path: "/doctors" },
+    { key: "contact", path: "/contact" },
     { key: "emergency", path: "/emergency", emergency: true }
   ];
 
@@ -164,7 +169,7 @@ export default function Layout() {
                 <div className="flex flex-col gap-4">
                   <h3 className="text-[#E1E0CC] font-medium tracking-widest text-[10px] uppercase mb-2 border-b border-[#DEDBC8]/10 pb-3">{t("layout.footer.company")}</h3>
                   <Link to="/about" className="text-[#DEDBC8]/60 hover:text-[#E1E0CC] text-sm transition-colors">{t("layout.footer.ourStory")}</Link>
-                  <Link to="/register" className="text-[#DEDBC8]/60 hover:text-[#E1E0CC] text-sm transition-colors">{t("layout.footer.contact")}</Link>
+                  <Link to="/contact" className="text-[#DEDBC8]/60 hover:text-[#E1E0CC] text-sm transition-colors">{t("layout.footer.contact")}</Link>
                   <Link to="/register" className="text-[#DEDBC8]/60 hover:text-[#E1E0CC] text-sm transition-colors">{t("layout.footer.joinDoctor")}</Link>
                 </div>
                 <div className="flex flex-col gap-4 col-span-2 md:col-span-1 border-t border-[#DEDBC8]/10 pt-8 md:border-none md:pt-0">

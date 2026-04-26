@@ -1,37 +1,32 @@
 .selector {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  padding: 8px 11px;
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(18, 18, 26, 0.12);
+  justify-content: center;
+  height: 40px;
+  padding: 0 16px;
+  background: rgba(255, 255, 255, 0.84);
+  border: 1px solid rgba(18, 18, 26, 0.1);
   border-radius: 999px;
   cursor: pointer;
-  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
-  color: rgba(18, 18, 26, 0.86);
+  transition: transform var(--ease), background var(--ease), box-shadow var(--ease), border-color var(--ease), color var(--ease);
+  color: rgba(18, 18, 26, 0.9);
+  line-height: 1;
+  white-space: nowrap;
+  box-shadow: 0 10px 24px rgba(18, 18, 26, 0.08);
 }
 
 .selector:hover {
-  background: rgba(255, 255, 255, 0.92);
-  border-color: rgba(18, 18, 26, 0.22);
-  transform: translateY(-1px);
+  background: #ffffff;
+  border-color: rgba(18, 18, 26, 0.16);
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 16px 36px rgba(18, 18, 26, 0.12);
 }
 
-.current,
-.next,
-.divider {
-  font-size: 0.78rem;
-  font-weight: 700;
-}
+.selector:active { transform: translateY(0) scale(0.99); }
 
 .current {
+  font-size: 0.92rem;
+  font-weight: 600;
   color: rgba(18, 18, 26, 0.92);
-}
-
-.divider {
-  opacity: 0.42;
-}
-
-.next {
-  opacity: 0.68;
+  letter-spacing: 0.01em;
 }
