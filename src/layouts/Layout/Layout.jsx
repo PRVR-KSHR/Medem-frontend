@@ -1,15 +1,37 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
-import { Activity, Menu, X } from "lucide-react";
+import { Activity, MapPin, Menu, X } from "lucide-react";
 import { motion } from "motion/react";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "../../components/LanguageSelector/LanguageSelector.jsx";
 import logo from '../../assets/logo.png';
 
+const GEO_OPTIONS = {
+  enableHighAccuracy: true,
+  timeout: 15000,
+  maximumAge: 0
+};
+
+function mapGeoError(error, t) {
+  if (!error) return t("location.error", { defaultValue: "Unable to get your location." });
+
+  if (error.code === 1) return t("location.permissionDenied", { defaultValue: "Location permission denied." });
+  if (error.code === 2) return t("location.unavailable", { defaultValue: "Location information is unavailable." });
+  if (error.code === 3) return t("location.timeout", { defaultValue: "Location request timed out." });
+
+  return t("location.error", { defaultValue: "Unable to get your location." });
+}
+
 export default function Layout() {
   const { t } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [geo, setGeo] = useState({
+    city: "",
+    region: "",
+    loading: false,
+    error: ""
+  });
   const location = useLocation();
 
   // Preserved from old Layout
@@ -32,21 +54,100 @@ export default function Layout() {
 
   const navLinks = [
     { key: "home", path: "/" },
-    { key: "about", path: "/about" },
     { key: "services", path: "/services" },
     { key: "doctors", path: "/doctors" },
-    { key: "contact", path: "/contact" },
-    { key: "emergency", path: "/emergency", emergency: true }
+    { key: "about", path: "/about", label: t("navbar.about") }
   ];
+
+  const resolveCity = async (latitude, longitude) => {
+    const endpoint = new URL("https://api.bigdatacloud.net/data/reverse-geocode-client");
+    endpoint.searchParams.set("latitude", String(latitude));
+    endpoint.searchParams.set("longitude", String(longitude));
+    endpoint.searchParams.set("localityLanguage", "en");
+
+    const response = await fetch(endpoint.toString(), { cache: "no-store" });
+    if (!response.ok) {
+      throw new Error("Reverse geocode request failed");
+    }
+
+    const data = await response.json();
+    return {
+      city: data.city || data.locality || data.principalSubdivision || "",
+      region: data.principalSubdivision || data.countryName || ""
+    };
+  };
+
+  const requestPreciseLocation = () => {
+    if (!navigator.geolocation) {
+      setGeo((prev) => ({ ...prev, loading: false, error: t("location.unsupported", { defaultValue: "Geolocation is not supported by your browser." }) }));
+      return;
+    }
+
+    setGeo((prev) => ({ ...prev, loading: true, error: "" }));
+
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        try {
+          const { latitude, longitude } = position.coords;
+          const place = await resolveCity(latitude, longitude);
+
+          if (!place.city) {
+            setGeo((prev) => ({
+              ...prev,
+              city: "",
+              region: "",
+              loading: false,
+              error: t("location.cityNotFound", { defaultValue: "Could not determine your current city." })
+            }));
+            return;
+          }
+
+          setGeo({
+            city: place.city,
+            region: place.region,
+            loading: false,
+            error: ""
+          });
+        } catch {
+          setGeo((prev) => ({ ...prev, loading: false, error: t("location.lookupFailed", { defaultValue: "Coordinates found, but city lookup failed." }) }));
+        }
+      },
+      (error) => {
+        setGeo((prev) => ({
+          ...prev,
+          loading: false,
+          error: mapGeoError(error, t)
+        }));
+      },
+      GEO_OPTIONS
+    );
+  };
+
+  useEffect(() => {
+    requestPreciseLocation();
+  }, []);
+
+  const locationLabel = geo.city
+    ? geo.region
+      ? `${geo.city}, ${geo.region}`
+      : geo.city
+    : geo.loading
+      ? t("location.detecting")
+      : t("location.unavailableShort", { defaultValue: "Unavailable" });
 
   return (
     <div className="bg-black text-[#DEDBC8] min-h-screen selection:bg-primary/30 flex flex-col font-sans">
       <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${(!isHome || isScrolled || isMenuOpen) ? "bg-[#101010]/80 backdrop-blur-md border-b border-[#DEDBC8]/10" : "bg-transparent border-transparent pt-4"}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <Link to="/" className="flex items-center gap-1.5 group">
+            <Link to="/" className="flex items-center gap-2 group">
               <img src={logo} alt="MedEm Logo" className="h-[52px] w-auto object-contain transition-transform group-hover:scale-105" />
-              <span className="font-serif italic text-2xl tracking-wide text-[#E1E0CC]">MEDEM</span>
+              <span className="flex flex-col justify-center leading-none gap-1">
+                <span className="font-serif italic text-[1.35rem] sm:text-2xl tracking-[0.02em] text-[#E1E0CC]">MedEm</span>
+                <span className="text-[0.5rem] sm:text-[0.58rem] font-semibold tracking-[0.08em] text-[#DEDBC8]/75 whitespace-nowrap">
+                  Care, Everytime, Everywhere
+                </span>
+              </span>
             </Link>
             
             <nav className="hidden md:flex gap-8">
@@ -56,17 +157,13 @@ export default function Layout() {
                 <Link
                   key={link.key}
                   to={link.path}
-                  className={`relative py-1 text-sm tracking-wide transition-colors ${
-                    link.emergency 
-                      ? isActive ? "text-red-400 font-bold" : "text-red-500 hover:text-red-400 font-bold" 
-                      : isActive ? "text-[#E1E0CC] font-medium" : "text-[#DEDBC8]/80 hover:text-[#E1E0CC]"
-                  }`}
+                  className={`relative py-1 text-sm tracking-wide transition-colors ${isActive ? "text-[#E1E0CC] font-medium" : "text-[#DEDBC8]/80 hover:text-[#E1E0CC]"}`}
                 >
-                  {t(`navbar.${link.key}`)}
+                  {link.label || t(`navbar.${link.key}`)}
                   {isActive && (
                     <motion.div
                       layoutId="nav-indicator"
-                      className={`absolute -bottom-[8px] left-0 right-0 h-[2px] rounded-full shadow-[0_0_8px_rgba(255,255,255,0.4)] ${link.emergency ? "bg-red-400 shadow-red-400/50" : "bg-[#DEDBC8]"}`}
+                      className="absolute -bottom-[8px] left-0 right-0 h-[2px] rounded-full shadow-[0_0_8px_rgba(255,255,255,0.4)] bg-[#DEDBC8]"
                     />
                   )}
                 </Link>
@@ -75,6 +172,16 @@ export default function Layout() {
             </nav>
 
             <div className="hidden md:flex items-center gap-4">
+              <div className="hidden lg:flex items-center gap-2">
+                <button
+                  onClick={requestPreciseLocation}
+                  disabled={geo.loading}
+                  className="flex items-center gap-2 px-3 py-2 rounded-full border border-[#DEDBC8]/15 bg-[#171717] hover:bg-[#202020] text-xs text-[#E1E0CC] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                >
+                  <MapPin className="h-3.5 w-3.5" />
+                  <span className="max-w-[180px] truncate">{geo.loading ? t("location.detecting") : `Locate Me: ${locationLabel}`}</span>
+                </button>
+              </div>
               <LanguageSelector />
               <Link
                 to="/register"
@@ -106,16 +213,30 @@ export default function Layout() {
                   key={link.key}
                   to={link.path}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${
-                    link.emergency 
-                      ? isActive ? "bg-[#212121] text-red-400" : "text-red-500 hover:bg-[#212121] hover:text-red-400" 
-                      : isActive ? "bg-[#212121] text-[#E1E0CC]" : "text-[#DEDBC8]/80 hover:text-[#E1E0CC] hover:bg-[#212121]"
-                  }`}
+                  className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${isActive ? "bg-[#212121] text-[#E1E0CC]" : "text-[#DEDBC8]/80 hover:text-[#E1E0CC] hover:bg-[#212121]"}`}
                 >
-                  {t(`navbar.${link.key}`)}
+                  {link.label || t(`navbar.${link.key}`)}
                 </Link>
                 );
               })}
+              <div className="px-3 pt-1 pb-2">
+                <div className="text-[11px] uppercase tracking-widest text-[#DEDBC8]/50 mb-2">{t("location.yourLocation")}</div>
+                <div className={`text-sm ${geo.error ? "text-red-400" : "text-[#E1E0CC]"}`}>
+                  {geo.error || locationLabel}
+                </div>
+              </div>
+              <div className="px-3 pb-1 grid grid-cols-2 gap-2">
+                <button
+                  onClick={() => {
+                    requestPreciseLocation();
+                    setIsMenuOpen(false);
+                  }}
+                  disabled={geo.loading}
+                  className="px-3 py-2 rounded-md text-sm font-medium bg-[#1d1d1d] text-[#E1E0CC] border border-[#DEDBC8]/10 disabled:opacity-60 col-span-2"
+                >
+                  {geo.loading ? t("location.detecting") : "Locate Me"}
+                </button>
+              </div>
               <div className="px-3 py-2">
                 <LanguageSelector />
               </div>

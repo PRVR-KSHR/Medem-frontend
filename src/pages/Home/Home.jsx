@@ -22,7 +22,6 @@ export default function Home() {
 }
 
 import heroVideo from "../../assets/partners/143379-782178675.mp4";
-import LocationWidget from "../../components/LocationWidget/LocationWidget.jsx";
 import emergencyBg from "../../assets/Service-bg/Emergency.png";
 import doctorBg from "../../assets/Service-bg/Doctor.png";
 import labBg from "../../assets/Service-bg/lab.png";
@@ -103,10 +102,6 @@ function HeroSection({ t }) {
               </div>
             </motion.div>
           </div>
-        </div>
-
-        <div className="absolute bottom-0 left-0 w-full z-30 border-t border-[#DEDBC8]/5">
-          <LocationWidget />
         </div>
       </div>
     </section>

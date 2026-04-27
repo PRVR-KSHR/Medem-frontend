@@ -36,6 +36,31 @@
   object-fit: contain;
   box-shadow: 0 10px 22px rgba(18, 18, 26, 0.10);
 }
+.brandText {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1;
+  gap: 4px;
+}
+
+.brandTitle {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: rgba(18, 18, 26, 0.94);
+}
+
+.brandSubtitle {
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(18, 18, 26, 0.72);
+  white-space: nowrap;
+}
+
 .mark {
   width: 28px;
   height: 28px;
@@ -116,6 +141,9 @@
 
 @media (max-width: 900px) {
   .inner { flex-direction: row; flex-wrap: wrap; justify-content: space-between; }
+  .logo { gap: 10px; }
+  .brandTitle { font-size: 1.06rem; }
+  .brandSubtitle { font-size: 0.56rem; letter-spacing: 0.03em; }
   .nav { display: none; }
   .burger { display: inline-flex; }
 
@@ -186,4 +214,16 @@
   .mobileLinkEmergency:hover {
     background: linear-gradient(135deg, #b91c1c 0%, #dc2626 100%);
   }
+}
+
+@media (max-width: 560px) {
+  .inner { padding: 0 10px; }
+  .logo { gap: 8px; }
+  .logoImg {
+    width: 34px;
+    height: 34px;
+  }
+  .brandTitle { font-size: 0.98rem; }
+  .brandSubtitle { font-size: 0.5rem; letter-spacing: 0.02em; }
+  .actions { gap: 8px; }
 }

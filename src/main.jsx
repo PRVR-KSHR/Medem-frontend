@@ -10,9 +10,20 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   </React.StrictMode>
 )
 
-// Register service worker for offline support
+// Avoid stale cached UI in development; keep offline caching in production.
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
+    if (import.meta.env.DEV) {
+      navigator.serviceWorker.getRegistrations()
+        .then((registrations) => {
+          registrations.forEach((registration) => registration.unregister())
+        })
+        .catch((err) => {
+          console.log('Service Worker cleanup failed:', err)
+        })
+      return
+    }
+
     navigator.serviceWorker.register('/sw.js').catch((err) => {
       console.log('Service Worker registration failed:', err)
     })
