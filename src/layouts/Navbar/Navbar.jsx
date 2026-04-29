@@ -89,12 +89,6 @@ export default function Navbar({ onEmergencyClick, onSignInClick }) {
             </Link>
           ))}
           <button 
-            onClick={onEmergencyClick}
-            className={styles.mobileLinkEmergency}
-          >
-            🚨 {t('navbar.emergency')}
-          </button>
-          <button 
             onClick={onSignInClick}
             className={styles.mobileLinkStrong}
           >

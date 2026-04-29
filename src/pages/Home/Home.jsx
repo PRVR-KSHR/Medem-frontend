@@ -76,23 +76,23 @@ function HeroSection({ t }) {
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.7, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col items-center gap-3"
+              className="flex flex-col items-stretch sm:items-start gap-3 w-full sm:w-auto"
             >
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center sm:items-start">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-stretch sm:items-start w-full">
                 <Link to="/emergency" className="bg-red-500 w-full sm:w-auto text-white rounded-full flex justify-between items-center pl-6 pr-2 py-2 font-medium text-sm hover:bg-red-600 transition-colors">
                   {t('home.hero.emergency')}
                   <div className="bg-white/20 rounded-full w-8 h-8 ml-4 flex items-center justify-center shrink-0">
                     <PhoneCall className="w-4 h-4 text-white" />
                   </div>
                 </Link>
-                <div className="flex flex-col gap-2 w-full sm:w-auto items-center sm:items-end">
+                <div className="flex flex-col gap-2 w-full sm:w-auto items-stretch sm:items-end">
                   <Link to="/appointment" className="bg-primary w-full sm:w-auto text-black rounded-full flex justify-between items-center pl-6 pr-2 py-2 font-medium text-sm group hover:gap-2 transition-all">
                     {t('home.hero.bookAppointment')}
                     <div className="bg-black rounded-full w-8 h-8 ml-4 flex items-center justify-center shrink-0 transform group-hover:scale-105 transition-all">
                       <ArrowRight className="w-4 h-4 text-primary" />
                     </div>
                   </Link>
-                  <p className="text-right text-white/90 font-medium sm:pr-4">
+                  <p className="text-center sm:text-right text-white/90 font-medium sm:pr-4">
                     <span className="text-xs sm:text-sm mr-1">{t('home.hero.callPrefix')}</span>
                     <span className="text-sm border-b leading-tight sm:text-base text-red-500 font-semibold drop-shadow-[0_0_10px_rgba(248,113,113,0.45)]">
                       {t('home.hero.phoneNumber')}
@@ -159,7 +159,7 @@ function PartnersScrollerSection({ t }) {
                key={i} 
                src={src.default || src} 
                alt={`Partner ${i}`} 
-               className="h-8 md:h-12 w-auto opacity-40 hover:opacity-100 grayscale hover:grayscale-0 transition-all duration-300 object-contain" 
+               className="h-14 md:h-20 w-auto opacity-80 hover:opacity-100 transition-all duration-300 object-contain" 
              />
            ))}
         </motion.div>

@@ -1,5 +1,5 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
-import { Activity, MapPin, Menu, X } from "lucide-react";
+import { Activity, MapPin, Menu, X, PhoneCall, ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -56,7 +56,8 @@ export default function Layout() {
     { key: "home", path: "/" },
     { key: "services", path: "/services" },
     { key: "doctors", path: "/doctors" },
-    { key: "about", path: "/about", label: t("navbar.about") }
+    { key: "about", path: "/about" },
+    { key: "contact", path: "/contact" }
   ];
 
   const resolveCity = async (latitude, longitude) => {
@@ -204,8 +205,8 @@ export default function Layout() {
 
         {/* Mobile menu */}
         {isMenuOpen && (
-          <div className="md:hidden bg-[#101010] border-b border-[#DEDBC8]/10">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+          <div className="md:hidden bg-[#101010] border-b border-[#DEDBC8]/10 overflow-y-auto max-h-[calc(100vh-64px)]">
+            <div className="px-4 pt-4 pb-8 space-y-3">
               {navLinks.map((link) => {
                 const isActive = location.pathname === link.path;
                 return (
@@ -213,39 +214,44 @@ export default function Layout() {
                   key={link.key}
                   to={link.path}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${isActive ? "bg-[#212121] text-[#E1E0CC]" : "text-[#DEDBC8]/80 hover:text-[#E1E0CC] hover:bg-[#212121]"}`}
+                  className={`block px-3 py-3 rounded-full text-center text-base font-medium transition-colors ${
+                    isActive ? "bg-[#212121] text-[#E1E0CC]" : "text-[#DEDBC8]/80 hover:text-[#E1E0CC] hover:bg-[#212121]"
+                  }`}
                 >
                   {link.label || t(`navbar.${link.key}`)}
                 </Link>
                 );
               })}
               <div className="px-3 pt-1 pb-2">
-                <div className="text-[11px] uppercase tracking-widest text-[#DEDBC8]/50 mb-2">{t("location.yourLocation")}</div>
-                <div className={`text-sm ${geo.error ? "text-red-400" : "text-[#E1E0CC]"}`}>
-                  {geo.error || locationLabel}
-                </div>
-              </div>
-              <div className="px-3 pb-1 grid grid-cols-2 gap-2">
+                <div className="text-[11px] uppercase tracking-widest text-[#DEDBC8]/50 mb-3 text-center">{t("location.yourLocation")}</div>
                 <button
                   onClick={() => {
                     requestPreciseLocation();
-                    setIsMenuOpen(false);
                   }}
                   disabled={geo.loading}
-                  className="px-3 py-2 rounded-md text-sm font-medium bg-[#1d1d1d] text-[#E1E0CC] border border-[#DEDBC8]/10 disabled:opacity-60 col-span-2"
+                  className="w-full bg-[#171717] text-[#E1E0CC] rounded-full flex justify-between items-center pl-6 pr-2 py-2 font-medium text-sm border border-[#DEDBC8]/10 group hover:bg-[#202020] transition-all disabled:opacity-60"
                 >
-                  {geo.loading ? t("location.detecting") : "Locate Me"}
+                  <span className="flex items-center gap-2 truncate pr-4">
+                    {geo.loading ? t("location.detecting") : geo.error ? t("location.cityNotFound") : locationLabel}
+                  </span>
+                  <div className="bg-[#DEDBC8]/10 rounded-full w-8 h-8 ml-4 flex items-center justify-center shrink-0">
+                    <MapPin className="w-4 h-4 text-[#DEDBC8]" />
+                  </div>
                 </button>
               </div>
-              <div className="px-3 py-2">
-                <LanguageSelector />
+
+              <div className="py-2">
+                <LanguageSelector variant="mobile" />
               </div>
               <Link
                 to="/register"
                 onClick={() => setIsMenuOpen(false)}
-                className="block px-3 py-2 rounded-md text-base font-medium bg-[#DEDBC8] text-black hover:bg-white transition-colors"
+                className="bg-[#DEDBC8] w-full text-black rounded-full flex justify-between items-center pl-6 pr-2 py-2 font-medium text-sm group hover:bg-white transition-all"
               >
                 {t("navbar.register")}
+                <div className="bg-black rounded-full w-8 h-8 ml-4 flex items-center justify-center shrink-0 transform group-hover:scale-105 transition-all">
+                  <ArrowRight className="w-4 h-4 text-[#DEDBC8]" />
+                </div>
               </Link>
             </div>
           </div>
