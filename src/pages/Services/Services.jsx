@@ -61,7 +61,7 @@ export default function Services() {
             >
               <Link 
                 to={`/services/${service.id}`}
-                className="relative block h-full overflow-hidden rounded-2xl p-8 border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.5),inset_0_0_0_1px_rgba(255,255,255,0.04)] transition-all group"
+                className="relative block h-full overflow-hidden rounded-2xl p-8 border border-[#dc2626]/25 shadow-[0_20px_40px_rgba(0,0,0,0.5),inset_0_0_0_1px_rgba(220,38,38,0.12)] transition-all group"
                 style={{
                   backgroundImage: `linear-gradient(90deg, rgba(6, 8, 13, 0.96) 0%, rgba(6, 8, 13, 0.84) 58%, rgba(6, 8, 13, 0.38) 100%), url(${service.bg})`,
                   backgroundSize: "cover",
@@ -70,7 +70,7 @@ export default function Services() {
                 }}
               >
                 <div className="absolute inset-0 backdrop-blur-[1.5px] opacity-70 pointer-events-none" />
-                <div className="relative z-10 bg-[#212121]/80 w-14 h-14 rounded-xl flex items-center justify-center mb-8 border border-white/10 group-hover:scale-110 transition-transform">
+                <div className="relative z-10 bg-[#212121]/80 w-14 h-14 rounded-xl flex items-center justify-center mb-8 border border-[#dc2626]/25 group-hover:scale-110 transition-transform">
                   <service.icon className={`w-6 h-6 ${service.color}`} />
                 </div>
                 <h3 className="relative z-10 text-[#E1E0CC] text-xl font-medium mb-3 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">{service.title}</h3>

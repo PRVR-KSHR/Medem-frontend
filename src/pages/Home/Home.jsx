@@ -125,7 +125,7 @@ function QuickActionsSection({ t }) {
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.8 + (i * 0.1), duration: 0.5 }}
-              className="bg-[#151515] hover:bg-[#212121] bg-noise border border-[#DEDBC8]/10 shadow-[0_10px_30px_rgba(0,0,0,0.4)] rounded-2xl p-6 flex flex-col items-center sm:items-start text-center sm:text-left transition-colors"
+              className="bg-[#151515] hover:bg-[#212121] bg-noise border border-[#dc2626]/25 shadow-[0_10px_30px_rgba(0,0,0,0.4)] rounded-2xl p-6 flex flex-col items-center sm:items-start text-center sm:text-left transition-colors"
             >
               <action.icon className={`w-8 h-8 ${action.color} mb-4`} />
               <h3 className="text-[#E1E0CC] font-medium text-lg">{action.title}</h3>
@@ -206,7 +206,7 @@ function ServicesPreviewSection({ t }) {
             >
               <Link 
                 to={`/services/${service.id}`}
-                className="relative block h-full overflow-hidden rounded-2xl p-8 border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.5),inset_0_0_0_1px_rgba(255,255,255,0.04)] transition-all group"
+                className="relative block h-full overflow-hidden rounded-2xl p-8 border border-[#dc2626]/25 shadow-[0_20px_40px_rgba(0,0,0,0.5),inset_0_0_0_1px_rgba(220,38,38,0.12)] transition-all group"
                 style={{
                   backgroundImage: `linear-gradient(90deg, rgba(6, 8, 13, 0.96) 0%, rgba(6, 8, 13, 0.84) 58%, rgba(6, 8, 13, 0.38) 100%), url(${service.bg})`,
                   backgroundSize: "cover",
@@ -215,7 +215,7 @@ function ServicesPreviewSection({ t }) {
                 }}
               >
                 <div className="absolute inset-0 backdrop-blur-[1.5px] opacity-70 pointer-events-none" />
-                <div className="relative z-10 bg-[#212121]/80 w-14 h-14 rounded-xl flex items-center justify-center mb-8 border border-white/10 group-hover:scale-110 transition-transform">
+                <div className="relative z-10 bg-[#212121]/80 w-14 h-14 rounded-xl flex items-center justify-center mb-8 border border-[#dc2626]/25 group-hover:scale-110 transition-transform">
                   <service.icon className={`w-6 h-6 ${service.color}`} />
                 </div>
                 <h3 className="relative z-10 text-[#E1E0CC] text-xl font-medium mb-3 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">{service.title}</h3>
@@ -333,7 +333,7 @@ function TestimonialsSection({ t }) {
   return (
     <section className="bg-black py-20 px-4 md:px-6 w-full border-t border-[#DEDBC8]/10">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
-        <div className="lg:col-span-4 bg-[#101010] border border-[#DEDBC8]/10 rounded-3xl p-8 shadow-[0_20px_40px_rgba(0,0,0,0.45)]">
+        <div className="lg:col-span-4 bg-[#101010] border border-[#dc2626]/25 rounded-3xl p-8 shadow-[0_20px_40px_rgba(0,0,0,0.45)]">
           <p className="text-primary text-[10px] sm:text-xs tracking-[0.22em] uppercase mb-3">{t('home.testimonials.kicker')}</p>
           <h2 className="text-3xl md:text-4xl font-serif italic text-[#E1E0CC] leading-tight mb-5">{t('home.testimonials.title')}</h2>
           <p className="text-[#DEDBC8]/60 text-sm leading-relaxed">{t('home.testimonials.subtitle')}</p>
@@ -351,10 +351,10 @@ function TestimonialsSection({ t }) {
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true, margin: '-70px' }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
-              className="bg-[#101010] border border-[#DEDBC8]/10 rounded-2xl p-6 shadow-[0_20px_40px_rgba(0,0,0,0.45)]"
+              className="bg-[#101010] border border-[#dc2626]/25 rounded-2xl p-6 shadow-[0_20px_40px_rgba(0,0,0,0.45)]"
             >
               <p className="text-[#DEDBC8]/80 text-sm leading-relaxed mb-6 min-h-[130px]">“{review.text}”</p>
-              <div className="pt-5 border-t border-[#DEDBC8]/10 flex items-center justify-between gap-4">
+              <div className="pt-5 border-t border-[#dc2626]/25 flex items-center justify-between gap-4">
                 <div>
                   <p className="text-[#E1E0CC] text-sm font-medium">{review.name}</p>
                   <p className="text-[#DEDBC8]/50 text-xs mt-1">{review.role}</p>
