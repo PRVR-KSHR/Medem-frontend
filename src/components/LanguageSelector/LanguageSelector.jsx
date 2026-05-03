@@ -15,15 +15,15 @@ export default function LanguageSelector({ variant = 'default' }) {
     return (
       <button
         type="button"
-        className="bg-[#212121] w-full text-[#E1E0CC] rounded-full flex justify-between items-center pl-6 pr-2 py-2 font-medium text-sm border border-[#DEDBC8]/10 group hover:bg-[#2a2a2a] transition-all"
+        className={`${styles.selector} ${styles.mobileSelector}`}
         onClick={() => i18n.changeLanguage(nextLang)}
       >
-        <span className="flex items-center gap-2">
+        <span className={styles.label}>
           {currentLang === 'en' ? 'हिंदी' : 'English'}
         </span>
-        <div className="bg-[#DEDBC8]/10 rounded-full w-8 h-8 ml-4 flex items-center justify-center shrink-0">
-          <Languages className="w-4 h-4 text-[#DEDBC8]" />
-        </div>
+        <span className={styles.iconBadge} aria-hidden="true">
+          <Languages className={styles.icon} />
+        </span>
       </button>
     )
   }
@@ -36,8 +36,11 @@ export default function LanguageSelector({ variant = 'default' }) {
       aria-label={currentLang === 'en' ? 'Switch language to Hindi' : 'Switch language to English'}
       title={currentLang === 'en' ? 'Switch to Hindi' : 'Switch to English'}
     >
-      <span className={styles.current}>
+      <span className={styles.label}>
         {currentLang === 'en' ? 'हिंदी' : 'English'}
+      </span>
+      <span className={styles.iconBadge} aria-hidden="true">
+        <Languages className={styles.icon} />
       </span>
     </button>
   )

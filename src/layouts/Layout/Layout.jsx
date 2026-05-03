@@ -164,7 +164,7 @@ export default function Layout() {
                   {isActive && (
                     <motion.div
                       layoutId="nav-indicator"
-                      className="absolute -bottom-[8px] left-0 right-0 h-[2px] rounded-full shadow-[0_0_8px_rgba(255,255,255,0.4)] bg-[#DEDBC8]"
+                      className="absolute -bottom-[8px] left-0 right-0 h-[2px] rounded-full shadow-[0_0_8px_rgba(220,38,38,0.45)] bg-[#dc2626]"
                     />
                   )}
                 </Link>
@@ -177,10 +177,12 @@ export default function Layout() {
                 <button
                   onClick={requestPreciseLocation}
                   disabled={geo.loading}
-                  className="flex items-center gap-2 px-3 py-2 rounded-full border border-[#DEDBC8]/15 bg-[#171717] hover:bg-[#202020] text-xs text-[#E1E0CC] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="inline-flex h-10 items-center justify-between gap-3 px-4 rounded-full border border-[#DEDBC8]/15 bg-white/[0.08] backdrop-blur-md text-xs text-[#E1E0CC] shadow-[0_10px_24px_rgba(0,0,0,0.18)] transition-colors hover:bg-white/[0.12] disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  <MapPin className="h-3.5 w-3.5" />
-                  <span className="max-w-[180px] truncate">{geo.loading ? t("location.detecting") : `Locate Me: ${locationLabel}`}</span>
+                  <span className="max-w-[150px] truncate font-medium">{geo.loading ? t("location.detecting") : `Locate Me: ${locationLabel}`}</span>
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white/[0.12] border border-white/[0.10] backdrop-blur-sm">
+                    <MapPin className="h-3 w-3 text-[#DEDBC8]" />
+                  </span>
                 </button>
               </div>
               <LanguageSelector />
