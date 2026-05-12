@@ -13,6 +13,7 @@ export default function Home() {
       <HeroSection t={t} />
       <QuickActionsSection t={t} />
       <PartnersScrollerSection t={t} />
+      <StickyHospitalSection t={t} />
       <ServicesPreviewSection t={t} />
       <MedicalTeamSection t={t} />
       <TestimonialsSection t={t} />
@@ -21,18 +22,34 @@ export default function Home() {
   );
 }
 
-import heroVideo from "../../assets/partners/143379-782178675.mp4";
+import heroVideo from "../../assets/hero_video.mp4";
+import heroPoster from "../../assets/hero_poster.png";
 import emergencyBg from "../../assets/Service-bg/Emergency.png";
 import doctorBg from "../../assets/Service-bg/Doctor.png";
 import labBg from "../../assets/Service-bg/lab.png";
 import medicineBg from "../../assets/Service-bg/medicine.png";
+import premiumHospital from "../../assets/premium_hospital.png";
+import medicalAbstract from "../../assets/medical_abstract.png";
 
 function HeroSection({ t }) {
   const videoRef = useRef(null);
 
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.playbackRate = 0.7;
+    const video = videoRef.current;
+    if (video) {
+      video.playbackRate = 0.6;
+      
+      // Smooth loop handling to prevent blinking
+      const handleTimeUpdate = () => {
+        // Reset slightly before the very end to prevent the flicker
+        if (video.duration > 0 && video.duration - video.currentTime < 0.15) {
+          video.currentTime = 0;
+          video.play().catch(() => {});
+        }
+      };
+      
+      video.addEventListener('timeupdate', handleTimeUpdate);
+      return () => video.removeEventListener('timeupdate', handleTimeUpdate);
     }
   }, []);
 
@@ -42,10 +59,12 @@ function HeroSection({ t }) {
         <video
           ref={videoRef}
           src={heroVideo}
+          poster={heroPoster}
           autoPlay
           loop
           muted
           playsInline
+          preload="auto"
           className="absolute inset-0 w-full h-full object-cover"
         />
         
@@ -171,6 +190,38 @@ function PartnersScrollerSection({ t }) {
   );
 }
 
+function StickyHospitalSection({ t }) {
+  return (
+    <section className="relative h-[150vh] w-full bg-black">
+      <div className="sticky top-0 h-screen w-full overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-[10s] hover:scale-105"
+          style={{ backgroundImage: `url(${premiumHospital})` }}
+        />
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black" />
+        
+        <div className="absolute inset-0 flex flex-col items-center justify-center px-4 md:px-6 z-10 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8 }}
+            className="max-w-4xl mx-auto"
+          >
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-serif text-[#E1E0CC] mb-6 drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
+              {t('home.stickySection.title', 'MedEm Excellence')}
+            </h2>
+            <p className="text-[#DEDBC8]/90 text-lg md:text-xl max-w-2xl mx-auto drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+              {t('home.stickySection.desc', 'MedEm is committed to providing world-class healthcare with our premium amenities, designed to ensure comfort, safety, and the highest standards of medical excellence for every patient.')}
+            </p>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function ServicesPreviewSection({ t }) {
   return (
     <section className="min-h-[70vh] bg-black relative px-4 md:px-6 py-20 w-full overflow-hidden">
@@ -181,7 +232,7 @@ function ServicesPreviewSection({ t }) {
           <span className="text-primary text-[10px] sm:text-xs tracking-widest uppercase mb-4 block">
             {t('home.servicesPreview.kicker')}
           </span>
-          <h2 className="text-[#E1E0CC] text-3xl md:text-5xl font-serif italic mb-6">
+          <h2 className="text-[#E1E0CC] text-3xl md:text-5xl font-serif mb-6">
             {t('home.servicesPreview.title')}
           </h2>
           <ScrollRevealText
@@ -264,22 +315,36 @@ function MedicalTeamSection({ t }) {
   ];
 
   return (
-    <section className="bg-black py-20 px-4 md:px-6 w-full border-t border-[#DEDBC8]/10">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
-          <div className="max-w-2xl">
+    <section className="bg-black py-20 px-4 md:px-6 w-full border-t border-[#DEDBC8]/10 relative overflow-hidden">
+      <div 
+        className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-screen"
+        style={{ backgroundImage: `url(${medicalAbstract})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+      />
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-10 mb-16">
+          <div className="lg:w-1/2 max-w-2xl">
             <p className="text-primary text-[10px] sm:text-xs tracking-[0.22em] uppercase mb-3">{t('home.medicalTeam.kicker')}</p>
-            <h2 className="text-3xl md:text-5xl font-serif italic text-[#E1E0CC] leading-tight mb-4">{t('home.medicalTeam.title')}</h2>
-            <p className="text-[#DEDBC8]/65 text-sm md:text-base leading-relaxed">{t('home.medicalTeam.subtitle')}</p>
+            <h2 className="text-3xl md:text-5xl font-serif text-[#E1E0CC] leading-tight mb-4">{t('home.medicalTeam.title')}</h2>
+            <p className="text-[#DEDBC8]/65 text-sm md:text-base leading-relaxed mb-8">{t('home.medicalTeam.subtitle')}</p>
+            <Link
+              to="/doctors"
+              className="inline-flex items-center gap-2 text-sm text-[#DEDBC8] hover:text-white transition-colors self-start md:self-auto"
+            >
+              {t('home.medicalTeam.cta')}
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
 
-          <Link
-            to="/doctors"
-            className="inline-flex items-center gap-2 text-sm text-[#DEDBC8] hover:text-white transition-colors self-start md:self-auto"
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="lg:w-1/2 h-[250px] md:h-[350px] rounded-[2rem] overflow-hidden relative border border-[#DEDBC8]/10 shadow-[0_20px_40px_rgba(0,0,0,0.4)]"
           >
-            {t('home.medicalTeam.cta')}
-            <ArrowRight className="w-4 h-4" />
-          </Link>
+             <img src={medicalAbstract} alt="Medical Excellence" className="w-full h-full object-cover scale-105 hover:scale-100 transition-transform duration-1000" />
+             <div className="absolute inset-0 bg-gradient-to-tr from-black/80 via-black/20 to-transparent" />
+          </motion.div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-5">
@@ -290,7 +355,7 @@ function MedicalTeamSection({ t }) {
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true, margin: '-60px' }}
               transition={{ delay: index * 0.1, duration: 0.45 }}
-              className="group bg-[#101010] border border-[#DEDBC8]/10 rounded-2xl p-6 shadow-[0_16px_36px_rgba(0,0,0,0.45)]"
+              className="group bg-[#101010] border border-[#dc2626]/25 rounded-2xl p-6 shadow-[0_16px_36px_rgba(0,0,0,0.45)]"
             >
               <div className="w-12 h-12 rounded-xl border border-[#DEDBC8]/20 bg-[#151515] text-[#E1E0CC] flex items-center justify-center text-sm font-medium mb-5">
                 {member.name.split(' ').slice(-1)[0]?.slice(0, 2).toUpperCase()}
@@ -331,11 +396,15 @@ function TestimonialsSection({ t }) {
   ];
 
   return (
-    <section className="bg-black py-20 px-4 md:px-6 w-full border-t border-[#DEDBC8]/10">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
+    <section className="bg-black py-20 px-4 md:px-6 w-full border-t border-[#DEDBC8]/10 relative">
+      <div 
+        className="absolute inset-0 opacity-[0.05] pointer-events-none mix-blend-screen"
+        style={{ backgroundImage: `url(${premiumHospital})`, backgroundSize: 'cover', backgroundAttachment: 'fixed', backgroundPosition: 'center' }}
+      />
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 relative z-10">
         <div className="lg:col-span-4 bg-[#101010] border border-[#dc2626]/25 rounded-3xl p-8 shadow-[0_20px_40px_rgba(0,0,0,0.45)]">
           <p className="text-primary text-[10px] sm:text-xs tracking-[0.22em] uppercase mb-3">{t('home.testimonials.kicker')}</p>
-          <h2 className="text-3xl md:text-4xl font-serif italic text-[#E1E0CC] leading-tight mb-5">{t('home.testimonials.title')}</h2>
+          <h2 className="text-3xl md:text-4xl font-serif text-[#E1E0CC] leading-tight mb-5">{t('home.testimonials.title')}</h2>
           <p className="text-[#DEDBC8]/60 text-sm leading-relaxed">{t('home.testimonials.subtitle')}</p>
           <div className="mt-8 inline-flex items-center gap-3 px-4 py-2 rounded-full border border-[#DEDBC8]/15 bg-[#151515] text-xs text-[#DEDBC8]/80">
             <span className="text-primary">★</span>
@@ -380,12 +449,16 @@ function TestimonialsSection({ t }) {
 
 function CTASection({ t }) {
     return (
-        <section className="bg-black py-20 px-4 md:px-6 w-full">
+        <section className="bg-black py-20 px-4 md:px-6 w-full relative overflow-hidden">
+            <div 
+              className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-screen"
+              style={{ backgroundImage: `url(${medicalAbstract})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+            />
             <div className="bg-primary bg-noise rounded-[2rem] p-10 sm:p-16 max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between text-center md:text-left border border-white/20 shadow-[0_20px_40px_rgba(222,219,200,0.1)] relative overflow-hidden">
                 <div className="absolute -right-[10%] -bottom-[20%] w-[50%] h-[150%] bg-white/20 blur-[120px] rounded-full pointer-events-none" />
                 
                 <div className="relative z-10 w-full md:w-3/5">
-                  <h2 className="text-black text-3xl md:text-5xl font-serif italic mb-4 tracking-tight">{t('home.cta.title')}</h2>
+                  <h2 className="text-black text-3xl md:text-5xl font-serif mb-4 tracking-tight">{t('home.cta.title')}</h2>
                   <p className="text-black/80 text-sm md:text-lg max-w-lg leading-relaxed">{t('home.cta.subtitle')}</p>
                 </div>
                 

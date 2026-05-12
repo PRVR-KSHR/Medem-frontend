@@ -318,6 +318,7 @@
   "doctorsPage": {
     "kicker": "Medical Professionals",
     "title": "Find a Doctor",
+    "description": "Connect with world-class medical professionals and specialists dedicated to your health and well-being. Find the right care, right when you need it.",
     "searchPlaceholder": "Search doctors, specialties...",
     "perVisit": "/ visit",
     "bookVisit": "Book Visit",
@@ -436,6 +437,54 @@
       "sampleCollection": { "title": "Sample Collection", "desc": "Certified phlebotomist reaches your location with sterile kits." },
       "labProcessing": { "title": "Lab Processing", "desc": "NABL-standard processing with strict quality controls." },
       "digitalReports": { "title": "Digital Reports", "desc": "Get verified reports in app and on email with doctor-ready format." }
+    }
+  },
+  "howItWorks": {
+    "doctors": {
+      "kicker": "The MedEm Process",
+      "title": "How it works",
+      "subtitle": "A seamless, unified approach to finding the right doctor and getting the care you need.",
+      "steps": {
+        "step1": {
+          "title": "Search & Filter",
+          "desc": "Browse our network of verified doctors by specialty, location, or availability."
+        },
+        "step2": {
+          "title": "Review Profiles",
+          "desc": "Check doctor credentials, patient reviews, and consultation fees before booking."
+        },
+        "step3": {
+          "title": "Book Appointment",
+          "desc": "Select a convenient time slot and instantly confirm your in-person or remote visit."
+        },
+        "step4": {
+          "title": "Consult & Follow-up",
+          "desc": "Connect with your doctor securely and manage your prescriptions and reports directly."
+        }
+      }
+    },
+    "services": {
+      "kicker": "Our Process",
+      "title": "How our services work",
+      "subtitle": "From emergency dispatch to medicine delivery, experience healthcare designed around your needs.",
+      "steps": {
+        "step1": {
+          "title": "Select a Service",
+          "desc": "Choose from emergency response, lab tests, pharmacy delivery, or doctor consultations."
+        },
+        "step2": {
+          "title": "Provide Details",
+          "desc": "Upload prescriptions, enter your location, or provide patient details securely."
+        },
+        "step3": {
+          "title": "Rapid Dispatch",
+          "desc": "Our system routes your request to the nearest available partner, ensuring minimal wait times."
+        },
+        "step4": {
+          "title": "Receive Care",
+          "desc": "Get medicines delivered, lab samples collected at home, or an ambulance at your doorstep."
+        }
+      }
     }
   }
 }

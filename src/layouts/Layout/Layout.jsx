@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "../../components/LanguageSelector/LanguageSelector.jsx";
 import logo from '../../assets/logo.png';
+import medicalAbstract from '../../assets/medical_abstract.png';
 
 const GEO_OPTIONS = {
   enableHighAccuracy: true,
@@ -177,11 +178,11 @@ export default function Layout() {
                 <button
                   onClick={requestPreciseLocation}
                   disabled={geo.loading}
-                  className="inline-flex h-10 items-center justify-between gap-3 px-4 rounded-full border border-[#DEDBC8]/15 bg-white/[0.08] backdrop-blur-md text-xs text-[#E1E0CC] shadow-[0_10px_24px_rgba(0,0,0,0.18)] transition-colors hover:bg-white/[0.12] disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="inline-flex h-8 items-center justify-between gap-[10px] px-3 rounded-full border border-[#DEDBC8]/15 bg-white/[0.08] backdrop-blur-md text-[10px] text-[#E1E0CC] shadow-[0_10px_24px_rgba(0,0,0,0.18)] transition-colors hover:bg-white/[0.12] disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  <span className="max-w-[150px] truncate font-medium">{geo.loading ? t("location.detecting") : `Locate Me: ${locationLabel}`}</span>
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white/[0.12] border border-white/[0.10] backdrop-blur-sm">
-                    <MapPin className="h-3 w-3 text-[#DEDBC8]" />
+                  <span className="max-w-[120px] truncate font-medium">{geo.loading ? t("location.detecting") : `Locate Me: ${locationLabel}`}</span>
+                  <span className="flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-full bg-white/[0.12] border border-white/[0.10] backdrop-blur-sm">
+                    <MapPin className="h-[10px] w-[10px] text-[#DEDBC8]" />
                   </span>
                 </button>
               </div>
@@ -264,7 +265,11 @@ export default function Layout() {
         <Outlet context={{ showEmergency, setShowEmergency, showSignIn, setShowSignIn }} />
       </main>
 
-      <footer className="bg-black px-4 sm:px-6 lg:px-8 pb-6 pt-12 mt-auto w-full">
+      <footer className="relative bg-black px-4 sm:px-6 lg:px-8 pb-6 pt-12 mt-auto w-full overflow-hidden">
+        <div 
+          className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-screen"
+          style={{ backgroundImage: `url(${medicalAbstract})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+        />
         <div className="max-w-7xl mx-auto rounded-[2rem] bg-[#1a1a1a] relative overflow-hidden border border-[#DEDBC8]/10 shadow-[0_20px_40px_rgba(0,0,0,0.5)] group">
           
           <div className="absolute inset-0 bg-noise opacity-[0.15] mix-blend-overlay pointer-events-none" />

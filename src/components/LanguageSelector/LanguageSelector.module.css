@@ -2,9 +2,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  height: 40px;
-  padding: 0 12px 0 16px;
+  gap: 10px;
+  height: 32px;
+  padding: 0 10px 0 12px;
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(14px);
   border: 1px solid rgba(222, 219, 200, 0.14);
@@ -27,7 +27,7 @@
 .selector:active { transform: translateY(0) scale(0.99); }
 
 .label {
-  font-size: 0.88rem;
+  font-size: 0.70rem;
   font-weight: 600;
   color: #E1E0CC;
   letter-spacing: 0.01em;
@@ -37,8 +37,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 22px;
+  height: 22px;
   flex-shrink: 0;
   border-radius: 999px;
   background: rgba(222, 219, 200, 0.10);
@@ -47,8 +47,8 @@
 }
 
 .icon {
-  width: 14px;
-  height: 14px;
+  width: 11px;
+  height: 11px;
   color: #DEDBC8;
 }
 

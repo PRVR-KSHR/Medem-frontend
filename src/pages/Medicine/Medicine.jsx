@@ -61,7 +61,7 @@ export default function Medicine() {
         >
           <div className="lg:col-span-8">
             <span className="text-red-400 text-[10px] sm:text-xs tracking-widest uppercase mb-4 block">{t('medicinePage.kicker')}</span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif italic text-[#E1E0CC] leading-[1.05] mb-5">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-[#E1E0CC] leading-[1.05] mb-5">
               {t('medicinePage.titleLine1')} <br /> {t('medicinePage.titleLine2')}
             </h1>
             <p className="text-[#DEDBC8]/70 text-base md:text-lg max-w-2xl">
@@ -102,7 +102,7 @@ export default function Medicine() {
         </section>
 
         <section className="mb-14">
-          <h2 className="text-2xl md:text-3xl font-serif italic text-[#E1E0CC] mb-6">{t('medicinePage.orderFlow')}</h2>
+          <h2 className="text-2xl md:text-3xl font-serif text-[#E1E0CC] mb-6">{t('medicinePage.orderFlow')}</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {DELIVERY_FLOW.map((step, index) => (
               <motion.div
@@ -125,7 +125,7 @@ export default function Medicine() {
 
         <section className="bg-[#101010] border border-[#DEDBC8]/10 rounded-3xl p-7 md:p-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div>
-            <h2 className="text-2xl font-serif italic text-[#E1E0CC] mb-2">{t('medicinePage.reminderTitle')}</h2>
+            <h2 className="text-2xl font-serif text-[#E1E0CC] mb-2">{t('medicinePage.reminderTitle')}</h2>
             <p className="text-[#DEDBC8]/70 text-sm md:text-base">{t('medicinePage.reminderSubtitle')}</p>
           </div>
 

@@ -2,6 +2,8 @@ import { Search, Filter, Star, Clock, MapPin, BadgeCheck } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
+import doctorsHeroBg from "../../assets/doctors_hero_bg.png";
+import HowItWorksSection from "../../components/HowItWorksSection.jsx";
 
 export default function Doctors() {
   const { t } = useTranslation();
@@ -71,105 +73,134 @@ export default function Doctors() {
   ];
 
   return (
-    <div className="w-full flex-1 bg-black pt-24 pb-20 px-4 sm:px-6 lg:px-8 relative">
-      <div className="max-w-7xl mx-auto relative z-10">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-          <div>
-            <span className="text-primary text-[10px] sm:text-xs tracking-widest uppercase mb-4 block">
-              {t('doctorsPage.kicker')}
-            </span>
-            <h1 className="text-3xl md:text-5xl font-serif italic text-[#E1E0CC]">
-              {t('doctorsPage.title')}
-            </h1>
-          </div>
-
-          <div className="flex w-full md:w-auto items-center gap-3">
-            <div className="relative flex-1 md:w-72">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#DEDBC8]/50" />
-              <input 
-                type="text" 
-                placeholder={t('doctorsPage.searchPlaceholder')}
-                className="w-full bg-[#101010] border border-[#DEDBC8]/20 rounded-full py-3 pl-12 pr-4 text-sm text-[#E1E0CC] focus:outline-none focus:border-[#DEDBC8]/50 transition-colors placeholder:text-[#DEDBC8]/40"
-              />
-            </div>
-            <button className="bg-[#101010] border border-[#DEDBC8]/20 rounded-full p-3 hover:bg-[#151515] transition-colors">
-              <Filter className="w-5 h-5 text-[#DEDBC8]" />
-            </button>
-          </div>
-        </div>
-
-        <div className="flex gap-3 overflow-x-auto pb-4 mb-8 scrollbar-hide">
-          {tags.map((tag, i) => (
-            <button key={i} className={`whitespace-nowrap px-5 py-2 rounded-full border text-sm transition-colors ${i === 0 ? "bg-[#DEDBC8] text-black border-[#DEDBC8]" : "bg-transparent text-[#DEDBC8] border-[#DEDBC8]/20 hover:border-[#DEDBC8]/50"}`}>
-              {tag}
-            </button>
-          ))}
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
-          {DOCTORS.map((doc, i) => (
-            <motion.div 
-              key={doc.id}
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="bg-[#0f1219] border border-white/8 rounded-3xl p-4 sm:p-5 shadow-[0_10px_24px_rgba(0,0,0,0.32)] flex flex-col hover:border-white/15 transition-colors group"
-            >
-              <div className="flex items-start justify-between gap-3 mb-4">
-                <div className="w-14 h-14 rounded-full overflow-hidden shrink-0 border border-white/20 relative bg-[#151922] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05)]">
-                  <img
-                    src={doc.img}
-                    alt={doc.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                    onError={(e) => {
-                      e.currentTarget.src = "https://ui-avatars.com/api/?name=" + encodeURIComponent(doc.name) + "&background=111827&color=e5e7eb&size=256";
-                    }}
-                  />
-                </div>
-
-                <div className="flex items-center gap-1.5 bg-emerald-500/15 text-emerald-300 px-2.5 py-1 rounded-full text-xs font-semibold border border-emerald-300/20">
-                  <Star className="w-3 h-3 fill-current" /> {doc.rating}
-                </div>
-              </div>
-              
-              <div className="flex-1 flex flex-col gap-3">
-                <div>
-                  <h3 className="text-[#E1E0CC] text-lg leading-tight font-medium tracking-tight flex items-center gap-2">
-                    {doc.name}
-                    <BadgeCheck className="w-4 h-4 text-sky-400/90" />
-                  </h3>
-                  <p className="text-[#DEDBC8]/75 text-sm mt-1">{doc.spec}</p>
-                </div>
-
-                <div className="space-y-1 text-[#DEDBC8]/55 text-xs">
-                  <p className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" /> {doc.exp}</p>
-                  <p className="flex items-center gap-1.5"><MapPin className="w-3.5 h-3.5" /> {doc.loc}</p>
-                  <p className="text-[#DEDBC8]/45">{doc.consultations}</p>
-                </div>
-
-                <div className="flex flex-wrap gap-2 pt-1">
-                  {doc.tags.map((tag) => (
-                    <span key={tag} className="px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] text-[#DEDBC8]/65">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="mt-auto pt-3 border-t border-white/8 flex items-end justify-between gap-3">
-                  <div>
-                    <p className="text-[#E1E0CC] text-2xl leading-none font-semibold tracking-tight">{doc.fee}</p>
-                    <p className="text-[#DEDBC8]/45 text-xs mt-1">{doc.status}</p>
-                  </div>
-                  <Link to={`/appointment?doctor=${doc.id}`} className="bg-primary text-black hover:bg-white px-4 py-2 rounded-full text-xs font-semibold transition-colors">
-                    {t('doctorsPage.bookVisit')}
-                  </Link>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+    <div className="w-full flex-1 bg-black relative">
+      {/* Sticky Background — stays fixed behind everything */}
+      <div className="fixed inset-0 z-0">
+        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${doctorsHeroBg})` }} />
+        <div className="absolute inset-0 bg-black/55" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/80" />
       </div>
+
+      {/* Hero Text Area */}
+      <section className="relative z-10 h-screen flex flex-col items-center justify-center text-center px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="max-w-3xl"
+        >
+          <span className="text-primary text-[10px] sm:text-xs tracking-widest uppercase mb-4 block">
+            {t('doctorsPage.kicker')}
+          </span>
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif text-[#E1E0CC] drop-shadow-lg">
+            {t('doctorsPage.title')}
+          </h1>
+          <p className="text-[#DEDBC8]/80 text-sm md:text-lg max-w-2xl mx-auto mt-6 drop-shadow-md">
+            {t('doctorsPage.description')}
+          </p>
+        </motion.div>
+      </section>
+
+      {/* Gradient Fade into Content */}
+      <div className="relative z-10 h-40 bg-gradient-to-b from-transparent via-black/70 to-black pointer-events-none" />
+
+      {/* Content Section */}
+      <section className="relative z-10 bg-black/80 pb-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          {/* Search, Filter & Tags */}
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-8 border-b border-[#dc2626]/20 pb-4 mt-[-10px]">
+            <div className="flex gap-3 overflow-x-auto scrollbar-hide">
+              {tags.map((tag, i) => (
+                <button key={i} className={`whitespace-nowrap px-4 py-1.5 rounded-full border text-xs font-medium transition-colors ${i === 0 ? "bg-[#dc2626] text-white border-[#dc2626]" : "bg-transparent text-[#DEDBC8]/80 border-[#DEDBC8]/20 hover:border-[#dc2626]/50"}`}>
+                  {tag}
+                </button>
+              ))}
+            </div>
+
+            <div className="flex items-center gap-2">
+              <div className="relative w-full lg:w-64">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#DEDBC8]/50" />
+                <input
+                  type="text"
+                  placeholder={t('doctorsPage.searchPlaceholder')}
+                  className="w-full bg-[#101010]/80 border border-[#dc2626]/25 rounded-full py-2 pl-9 pr-3 text-xs text-[#E1E0CC] focus:outline-none focus:border-[#dc2626]/50 transition-colors placeholder:text-[#DEDBC8]/40"
+                />
+              </div>
+              <button className="bg-[#101010]/80 border border-[#dc2626]/25 rounded-full p-2 hover:bg-[#151515] transition-colors hover:border-[#dc2626]/50 flex shrink-0 items-center justify-center">
+                <Filter className="w-3.5 h-3.5 text-[#DEDBC8]" />
+              </button>
+            </div>
+          </div>
+
+          {/* Doctor Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+            {DOCTORS.map((doc, i) => (
+              <motion.div
+                key={doc.id}
+                initial={{ y: 20, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ delay: i * 0.1, duration: 0.5 }}
+                className="bg-[#0a0c10]/90 backdrop-blur-sm border border-[#dc2626]/25 rounded-3xl p-4 sm:p-5 shadow-[0_16px_36px_rgba(0,0,0,0.45)] flex flex-col hover:border-[#dc2626]/50 transition-colors group"
+              >
+                <div className="flex items-start justify-between gap-3 mb-4">
+                  <div className="w-14 h-14 rounded-full overflow-hidden shrink-0 border border-white/20 relative bg-[#151922] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05)]">
+                    <img
+                      src={doc.img}
+                      alt={doc.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                      onError={(e) => {
+                        e.currentTarget.src = "https://ui-avatars.com/api/?name=" + encodeURIComponent(doc.name) + "&background=111827&color=e5e7eb&size=256";
+                      }}
+                    />
+                  </div>
+
+                  <div className="flex items-center gap-1.5 bg-emerald-500/15 text-emerald-300 px-2.5 py-1 rounded-full text-xs font-semibold border border-emerald-300/20">
+                    <Star className="w-3 h-3 fill-current" /> {doc.rating}
+                  </div>
+                </div>
+
+                <div className="flex-1 flex flex-col gap-3">
+                  <div>
+                    <h3 className="text-[#E1E0CC] text-lg leading-tight font-medium tracking-tight flex items-center gap-2">
+                      {doc.name}
+                      <BadgeCheck className="w-4 h-4 text-sky-400/90" />
+                    </h3>
+                    <p className="text-[#DEDBC8]/75 text-sm mt-1">{doc.spec}</p>
+                  </div>
+
+                  <div className="space-y-1 text-[#DEDBC8]/55 text-xs">
+                    <p className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" /> {doc.exp}</p>
+                    <p className="flex items-center gap-1.5"><MapPin className="w-3.5 h-3.5" /> {doc.loc}</p>
+                    <p className="text-[#DEDBC8]/45">{doc.consultations}</p>
+                  </div>
+
+                  <div className="flex flex-wrap gap-2 pt-1">
+                    {doc.tags.map((tag) => (
+                      <span key={tag} className="px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] text-[#DEDBC8]/65">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="mt-auto pt-3 border-t border-white/8 flex items-end justify-between gap-3">
+                    <div>
+                      <p className="text-[#E1E0CC] text-2xl leading-none font-semibold tracking-tight">{doc.fee}</p>
+                      <p className="text-[#DEDBC8]/45 text-xs mt-1">{doc.status}</p>
+                    </div>
+                    <Link to={`/appointment?doctor=${doc.id}`} className="bg-primary text-black hover:bg-white px-4 py-2 rounded-full text-xs font-semibold transition-colors">
+                      {t('doctorsPage.bookVisit')}
+                    </Link>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+      
+      <HowItWorksSection t={t} />
     </div>
   );
 }

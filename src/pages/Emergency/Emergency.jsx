@@ -46,7 +46,7 @@ export default function Emergency() {
           </div>
         </motion.div>
 
-        <h1 className="text-4xl md:text-6xl font-serif italic text-white mb-6">
+        <h1 className="text-4xl md:text-6xl font-serif text-white mb-6">
           {t('emergencyPage.title')}
         </h1>
         <p className="text-red-200/80 text-lg max-w-2xl mb-12">

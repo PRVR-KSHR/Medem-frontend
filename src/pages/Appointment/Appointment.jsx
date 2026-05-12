@@ -9,7 +9,7 @@ export default function Appointment() {
   return (
     <div className="w-full flex-1 bg-black pt-24 pb-20 px-4 sm:px-6 lg:px-8 relative">
       <div className="max-w-3xl mx-auto relative z-10">
-        <h1 className="text-3xl md:text-5xl font-serif italic text-[#E1E0CC] mb-8 text-center">
+        <h1 className="text-3xl md:text-5xl font-serif text-[#E1E0CC] mb-8 text-center">
           {t('appointmentPage.title')}
         </h1>
 

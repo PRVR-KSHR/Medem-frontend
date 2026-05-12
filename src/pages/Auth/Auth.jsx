@@ -12,7 +12,7 @@ export default function Auth({ type = "login" }) {
       
       <div className="w-full max-w-md mx-auto relative z-10 flex flex-col justify-center px-4 py-12">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-serif italic text-[#E1E0CC] mb-2">
+          <h1 className="text-4xl font-serif text-[#E1E0CC] mb-2">
             {isLogin ? t('authPage.loginTitle') : t('authPage.registerTitle')}
           </h1>
           <p className="text-[#DEDBC8]/60 text-sm">
